@@ -85,14 +85,13 @@
     margin-top: 10px;
   }
 
-  /* ── FLOW INDICATOR ── */
+  /* ── FLOW ── */
   .flow {
     display: flex;
     align-items: center;
-    gap: 0;
-    margin-bottom: 36px;
     flex-wrap: wrap;
     gap: 2px;
+    margin-bottom: 40px;
   }
 
   .flow-step {
@@ -110,104 +109,77 @@
     padding: 0 2px;
   }
 
-  /* ── BLOCKS ── */
-  .blocks {
+  /* ── LOG ENTRY (日付でまとめる単位) ── */
+  .log-entries {
     display: flex;
     flex-direction: column;
-    gap: 2px;
+    gap: 40px;
   }
 
-  .block {
+  .log-entry {
     border: 1px solid #182030;
-    border-left: 3px solid #d4a017;
+    border-top: 2px solid #d4a017;
     background: #0c1220;
-    transition: border-color 0.2s, background 0.2s;
-    overflow: hidden;
   }
 
-  .block:hover {
-    border-color: #2a4878;
-    border-left-color: #e8b84a;
-    background: #0e1628;
-  }
-
-  .block-header {
-    display: flex;
-    align-items: center;
-    gap: 14px;
-    padding: 16px 24px;
+  .log-date {
+    font-family: "Cormorant Garamond", serif;
+    font-size: 13px;
+    letter-spacing: 0.25em;
+    color: #e8b84a;
+    padding: 14px 22px;
     border-bottom: 1px solid #182030;
   }
 
-  .block-num {
-    font-family: "Cormorant Garamond", serif;
-    font-size: 20px;
-    font-weight: 400;
-    color: #e8b84a;
-    line-height: 1;
-    min-width: 22px;
+  /* ── SECTIONS inside each log ── */
+  .section {
+    border-bottom: 1px solid #10182a;
+    padding: 16px 22px;
+    display: grid;
+    grid-template-columns: 120px 1fr;
+    gap: 0;
   }
 
-  h3 {
-    font-family: "Cormorant Garamond", serif;
-    font-size: 17px;
-    font-weight: 400;
-    letter-spacing: 0.06em;
-    color: #a8c4e8;
-  }
+  .section:last-child { border-bottom: none; }
+  .section:hover { background: #0e1628; }
 
-  .block-body {
-    padding: 16px 24px 20px;
-  }
-
-  textarea {
-    width: 100%;
-    height: 90px;
-    background: #08100e;
-    border: 1px solid #1e2a44;
-    color: #c8d8ee;
-    font-family: "Noto Serif JP", serif;
-    font-size: 13px;
-    line-height: 1.9;
-    padding: 10px 14px;
-    resize: vertical;
-    outline: none;
-    transition: border-color 0.2s;
-  }
-
-  textarea:focus { border-color: #2a4878; }
-  textarea::placeholder { color: #2a3850; font-size: 12px; }
-
-  /* ── BUTTON ── */
-  .btn-wrap {
-    margin-top: 32px;
+  .section-label {
     display: flex;
-    justify-content: flex-end;
+    align-items: baseline;
+    gap: 7px;
+    padding-right: 16px;
+    border-right: 1px solid #182030;
   }
 
-  button {
-    padding: 11px 28px;
-    background: transparent;
-    border: 1px solid #d4a017;
+  .section-num {
+    font-family: "Cormorant Garamond", serif;
+    font-size: 15px;
     color: #e8b84a;
-    font-family: "Noto Serif JP", serif;
-    font-size: 13px;
-    letter-spacing: 0.15em;
-    cursor: pointer;
-    transition: all 0.2s;
   }
 
-  button:hover {
-    background: #1a1408;
-    border-color: #e8b84a;
-    color: #f8d870;
+  h2 {
+    font-family: "Cormorant Garamond", serif;
+    font-size: 12px;
+    font-weight: 400;
+    letter-spacing: 0.08em;
+    color: #4a6a8a;
+  }
+
+  .section-text {
+    font-size: 13px;
+    color: #8aaad8;
+    line-height: 1.9;
+    font-weight: 300;
+    padding-left: 18px;
   }
 
   @media (max-width: 560px) {
     h1 { font-size: 22px; }
     .roman { font-size: 28px; }
     .wrap { padding: 40px 20px 60px; }
-    .flow { gap: 4px; }
+    .section { grid-template-columns: 1fr; }
+    .section-label { border-right: none; padding-right: 0; margin-bottom: 6px; }
+    .section-text { padding-left: 0; }
   }
 </style>
 </head>
@@ -223,7 +195,7 @@
       <span class="roman">Ⅱ</span>
       <h1>小論文構築（論理変換）</h1>
     </div>
-    <p class="page-note">観察された事象を、以下の5構造に分解・再構成する。</p>
+    <p class="page-note">観察された事象を、5構造に分解・再構成した記録。</p>
   </header>
 
   <div class="flow">
@@ -238,62 +210,53 @@
     <span class="flow-step">結論</span>
   </div>
 
-  <div class="blocks">
+  <div class="log-entries">
 
-    <div class="block">
-      <div class="block-header">
-        <span class="block-num">①</span>
-        <h3>問題提起</h3>
+    <!-- エントリー例：新しい日付のまとまりをここにコピペして追加 -->
+    <div class="log-entry">
+      <div class="log-date">2026 / 05 / 20</div>
+
+      <div class="section">
+        <div class="section-label">
+          <span class="section-num">①</span>
+          <h2>問題提起</h2>
+        </div>
+        <p class="section-text">なぜ日本語では「曖昧な表現」が肯定的に評価されるのか。</p>
       </div>
-      <div class="block-body">
-        <textarea placeholder="何が問題なのかを一文で設定する…"></textarea>
+
+      <div class="section">
+        <div class="section-label">
+          <span class="section-num">②</span>
+          <h2>概念定義</h2>
+        </div>
+        <p class="section-text">「曖昧さ」とは、命題の真偽が文脈に依存し、単独では確定しない言語状態を指す。</p>
+      </div>
+
+      <div class="section">
+        <div class="section-label">
+          <span class="section-num">③</span>
+          <h2>分析</h2>
+        </div>
+        <p class="section-text">共同体的コミュニケーションでは、断定による関係毀損を避けるため、曖昧さが潤滑剤として機能する。</p>
+      </div>
+
+      <div class="section">
+        <div class="section-label">
+          <span class="section-num">④</span>
+          <h2>反論想定</h2>
+        </div>
+        <p class="section-text">「曖昧さは非論理的」という批判は、論理と関係維持を同一の目的に置く誤りを含む。</p>
+      </div>
+
+      <div class="section">
+        <div class="section-label">
+          <span class="section-num">⑤</span>
+          <h2>結論</h2>
+        </div>
+        <p class="section-text">日本語の曖昧さは欠陥ではなく、関係優先の言語設計における合理的選択である。</p>
       </div>
     </div>
 
-    <div class="block">
-      <div class="block-header">
-        <span class="block-num">②</span>
-        <h3>概念定義</h3>
-      </div>
-      <div class="block-body">
-        <textarea placeholder="論の中心となる概念を明確に定義する…"></textarea>
-      </div>
-    </div>
-
-    <div class="block">
-      <div class="block-header">
-        <span class="block-num">③</span>
-        <h3>分析（原因・構造）</h3>
-      </div>
-      <div class="block-body">
-        <textarea placeholder="問題の原因や構造を論理的に分解する…"></textarea>
-      </div>
-    </div>
-
-    <div class="block">
-      <div class="block-header">
-        <span class="block-num">④</span>
-        <h3>反論想定</h3>
-      </div>
-      <div class="block-body">
-        <textarea placeholder="予想される反対意見を先に構造化し、再配置する…"></textarea>
-      </div>
-    </div>
-
-    <div class="block">
-      <div class="block-header">
-        <span class="block-num">⑤</span>
-        <h3>結論</h3>
-      </div>
-      <div class="block-body">
-        <textarea placeholder="分析と反論処理を経た上での主張を述べる…"></textarea>
-      </div>
-    </div>
-
-  </div>
-
-  <div class="btn-wrap">
-    <button>小論文を完成させる →</button>
   </div>
 
 </div>
