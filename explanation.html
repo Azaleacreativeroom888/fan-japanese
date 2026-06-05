@@ -1,70 +1,235 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-  <meta charset="UTF-8">
-  <title>論理構造・国語理論</title>
-  <style>
-    body {
-      font-family: "Yu Mincho", serif;
-      max-width: 900px;
-      margin: 50px auto;
-      padding: 20px;
-      line-height: 1.9;
-    }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>論理構造・国語理論</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=Noto+Serif+JP:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-    h1 {
-      border-bottom: 1px solid #333;
-      padding-bottom: 8px;
-    }
+  body {
+    font-family: "Noto Serif JP", "Yu Mincho", serif;
+    background: #0a0e18;
+    color: #d8e0ee;
+    min-height: 100vh;
+  }
 
-    h2 {
-      margin-top: 30px;
-      border-left: 4px solid #333;
-      padding-left: 10px;
-    }
+  .deco {
+    position: fixed;
+    width: 500px; height: 500px;
+    border-radius: 50%;
+    background: radial-gradient(circle, #0a2050 0%, transparent 70%);
+    top: -100px; right: -150px;
+    pointer-events: none;
+    opacity: 0.5;
+  }
 
-    .box {
-      border: 1px solid #bbb;
-      padding: 15px;
-      margin-top: 10px;
-    }
+  .wrap {
+    max-width: 780px;
+    margin: 0 auto;
+    padding: 64px 32px 80px;
+  }
 
-    .note {
-      font-size: 14px;
-      color: #555;
-    }
-  </style>
+  /* ── HEADER ── */
+  .header {
+    margin-bottom: 48px;
+    padding-bottom: 28px;
+    border-bottom: 1px solid #1e2a44;
+  }
+
+  .breadcrumb {
+    font-family: "Cormorant Garamond", serif;
+    font-size: 11px;
+    letter-spacing: 0.3em;
+    color: #4a6a9a;
+    margin-bottom: 12px;
+  }
+
+  .breadcrumb a {
+    color: #e8b84a;
+    text-decoration: none;
+  }
+
+  .breadcrumb a:hover { text-decoration: underline; }
+
+  .page-label {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 10px;
+  }
+
+  .roman {
+    font-family: "Cormorant Garamond", serif;
+    font-size: 36px;
+    font-weight: 400;
+    color: #2e5080;
+    line-height: 1;
+  }
+
+  h1 {
+    font-family: "Cormorant Garamond", serif;
+    font-size: 30px;
+    font-weight: 400;
+    letter-spacing: 0.04em;
+    color: #e8f0ff;
+    line-height: 1.2;
+  }
+
+  .page-note {
+    font-size: 13px;
+    color: #5a6a88;
+    line-height: 1.9;
+    font-weight: 300;
+    margin-top: 10px;
+  }
+
+  /* ── ITEMS ── */
+  .items {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .item {
+    border: 1px solid #182030;
+    border-left: 3px solid #1a5a8a;
+    background: #0c1220;
+    transition: border-color 0.2s, background 0.2s;
+    overflow: hidden;
+  }
+
+  .item:hover {
+    border-color: #2a4878;
+    border-left-color: #4a90d0;
+    background: #0e1628;
+  }
+
+  .item-header {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 18px 24px;
+    border-bottom: 1px solid #182030;
+  }
+
+  .item-num {
+    font-family: "Cormorant Garamond", serif;
+    font-size: 22px;
+    font-weight: 400;
+    color: #e8b84a;
+    line-height: 1;
+    min-width: 20px;
+  }
+
+  h2 {
+    font-family: "Cormorant Garamond", serif;
+    font-size: 18px;
+    font-weight: 400;
+    letter-spacing: 0.06em;
+    color: #a8c4e8;
+  }
+
+  .item-body {
+    padding: 18px 24px 20px 62px;
+  }
+
+  .item-body p {
+    font-size: 13px;
+    color: #6a8aaa;
+    line-height: 2;
+    font-weight: 300;
+  }
+
+  .item-body .arrow { color: #e8b84a; }
+
+  .example {
+    margin-top: 10px;
+    padding: 10px 14px;
+    border-left: 2px solid #2a4a7a;
+    background: #08100e;
+    font-size: 12px;
+    color: #5a7a9a;
+    line-height: 1.9;
+    font-style: italic;
+  }
+
+  .example .arrow { color: #e8b84a; font-style: normal; }
+
+  @media (max-width: 560px) {
+    h1 { font-size: 22px; }
+    .roman { font-size: 28px; }
+    .wrap { padding: 40px 20px 60px; }
+    .item-body { padding-left: 24px; }
+  }
+</style>
 </head>
-
 <body>
+<div class="deco"></div>
+<div class="wrap">
 
-  <h1>Ⅲ. 論理構造・国語理論</h1>
+  <header class="header">
+    <div class="breadcrumb">
+      <a href="index.html">世の中の疑問ブログ</a> / Ⅲ. 国語学習
+    </div>
+    <div class="page-label">
+      <span class="roman">Ⅲ</span>
+      <h1>論理構造・国語理論</h1>
+    </div>
+    <p class="page-note">小論文に必要な思考技術を体系化する。</p>
+  </header>
 
-  <p class="note">
-    小論文に必要な思考技術を体系化する。
-  </p>
+  <div class="items">
 
-  <h2>1. 論理構造の基本</h2>
-  <div class="box">
-    主張は必ず「問題設定 → 分析 → 結論」の流れを持つ。<br>
-    感情や印象は論証としては扱わない。
+    <div class="item">
+      <div class="item-header">
+        <span class="item-num">1</span>
+        <h2>論理構造の基本</h2>
+      </div>
+      <div class="item-body">
+        <p>
+          主張は必ず「問題設定 <span class="arrow">→</span> 分析 <span class="arrow">→</span> 結論」の流れを持つ。<br>
+          感情や印象は論証としては扱わない。
+        </p>
+      </div>
+    </div>
+
+    <div class="item">
+      <div class="item-header">
+        <span class="item-num">2</span>
+        <h2>抽象化</h2>
+      </div>
+      <div class="item-body">
+        <p>個別事例から「共通構造」を取り出す操作。</p>
+        <div class="example">
+          例：SNSの不満 <span class="arrow">→</span>「評価構造への依存」
+        </div>
+      </div>
+    </div>
+
+    <div class="item">
+      <div class="item-header">
+        <span class="item-num">3</span>
+        <h2>反論処理</h2>
+      </div>
+      <div class="item-body">
+        <p>予想される反対意見を先に構造化し、再配置することで論理の強度を上げる。</p>
+      </div>
+    </div>
+
+    <div class="item">
+      <div class="item-header">
+        <span class="item-num">4</span>
+        <h2>接続表現</h2>
+      </div>
+      <div class="item-body">
+        <p>「しかし」「したがって」「一方で」などは論理関係の明示装置である。</p>
+      </div>
+    </div>
+
   </div>
 
-  <h2>2. 抽象化</h2>
-  <div class="box">
-    個別事例から「共通構造」を取り出す操作。<br>
-    例：SNSの不満 → 「評価構造への依存」
-  </div>
-
-  <h2>3. 反論処理</h2>
-  <div class="box">
-    予想される反対意見を先に構造化し、再配置することで論理の強度を上げる。
-  </div>
-
-  <h2>4. 接続表現</h2>
-  <div class="box">
-    「しかし」「したがって」「一方で」などは論理関係の明示装置である。
-  </div>
-
+</div>
 </body>
 </html>
