@@ -1,53 +1,235 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-  <meta charset="UTF-8">
-  <title>観察記録（言語データ収集）</title>
-  <style>
-    body {
-      font-family: "Yu Mincho", serif;
-      max-width: 800px;
-      margin: 50px auto;
-      padding: 20px;
-      line-height: 1.8;
-    }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>観察記録（言語データ収集）</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=Noto+Serif+JP:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-    h1 {
-      border-bottom: 1px solid #333;
-      padding-bottom: 8px;
-    }
+  body {
+    font-family: "Noto Serif JP", "Yu Mincho", serif;
+    background: #0a0e18;
+    color: #d8e0ee;
+    min-height: 100vh;
+  }
 
-    textarea {
-      width: 100%;
-      height: 120px;
-      margin-top: 10px;
-      font-size: 16px;
-    }
+  .deco {
+    position: fixed;
+    width: 500px; height: 500px;
+    border-radius: 50%;
+    background: radial-gradient(circle, #0a2050 0%, transparent 70%);
+    top: -100px; right: -150px;
+    pointer-events: none;
+    opacity: 0.5;
+  }
 
-    .note {
-      font-size: 14px;
-      color: #555;
-    }
+  .wrap {
+    max-width: 780px;
+    margin: 0 auto;
+    padding: 64px 32px 80px;
+  }
 
-    button {
-      margin-top: 10px;
-      padding: 8px 14px;
-    }
-  </style>
+  /* ── HEADER ── */
+  .header {
+    margin-bottom: 48px;
+    padding-bottom: 28px;
+    border-bottom: 1px solid #1e2a44;
+  }
+
+  .breadcrumb {
+    font-family: "Cormorant Garamond", serif;
+    font-size: 11px;
+    letter-spacing: 0.3em;
+    color: #4a6a9a;
+    margin-bottom: 12px;
+  }
+
+  .breadcrumb a {
+    color: #e8b84a;
+    text-decoration: none;
+  }
+
+  .breadcrumb a:hover { text-decoration: underline; }
+
+  .page-label {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 10px;
+  }
+
+  .roman {
+    font-family: "Cormorant Garamond", serif;
+    font-size: 36px;
+    font-weight: 400;
+    color: #a03028;
+    line-height: 1;
+  }
+
+  h1 {
+    font-family: "Cormorant Garamond", serif;
+    font-size: 30px;
+    font-weight: 400;
+    letter-spacing: 0.04em;
+    color: #e8f0ff;
+    line-height: 1.2;
+  }
+
+  .page-note {
+    font-size: 13px;
+    color: #5a6a88;
+    line-height: 1.9;
+    font-weight: 300;
+    margin-top: 10px;
+  }
+
+  /* ── ENTRIES ── */
+  .entries {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .entry {
+    border: 1px solid #182030;
+    border-left: 3px solid #a03028;
+    background: #0c1220;
+    padding: 20px 24px;
+    transition: border-color 0.2s, background 0.2s;
+  }
+
+  .entry:hover {
+    border-color: #2a4878;
+    border-left-color: #c0392b;
+    background: #0e1628;
+  }
+
+  .entry-date {
+    font-family: "Cormorant Garamond", serif;
+    font-size: 12px;
+    letter-spacing: 0.2em;
+    color: #e8b84a;
+    margin-bottom: 8px;
+  }
+
+  .entry-text {
+    font-size: 14px;
+    color: #8aaad8;
+    line-height: 1.9;
+    font-weight: 300;
+  }
+
+  /* ── INPUT SECTION ── */
+  .input-section {
+    margin-top: 40px;
+    padding: 28px 32px;
+    background: #0c1422;
+    border: 1px solid #182030;
+    border-top: 2px solid #2a5898;
+    position: relative;
+  }
+
+  .input-section::before {
+    content: "新規入力";
+    position: absolute;
+    top: -10px; left: 24px;
+    background: #0a0e18;
+    padding: 0 10px;
+    font-size: 10px;
+    letter-spacing: 0.3em;
+    color: #3a5a88;
+  }
+
+  .input-section h2 {
+    font-family: "Cormorant Garamond", serif;
+    font-size: 16px;
+    font-weight: 400;
+    color: #6a8ab8;
+    margin-bottom: 14px;
+    letter-spacing: 0.1em;
+  }
+
+  textarea {
+    width: 100%;
+    height: 120px;
+    background: #08100e;
+    border: 1px solid #1e2a44;
+    color: #c8d8ee;
+    font-family: "Noto Serif JP", serif;
+    font-size: 14px;
+    line-height: 1.8;
+    padding: 12px 16px;
+    resize: vertical;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+
+  textarea:focus { border-color: #2a4878; }
+  textarea::placeholder { color: #2a3850; }
+
+  button {
+    margin-top: 12px;
+    padding: 9px 22px;
+    background: transparent;
+    border: 1px solid #2a4878;
+    color: #6a9ad8;
+    font-family: "Noto Serif JP", serif;
+    font-size: 13px;
+    cursor: pointer;
+    letter-spacing: 0.1em;
+    transition: all 0.2s;
+  }
+
+  button:hover {
+    background: #0e1a30;
+    border-color: #4a7ab8;
+    color: #a8c8f0;
+  }
+
+  @media (max-width: 560px) {
+    h1 { font-size: 22px; }
+    .roman { font-size: 28px; }
+    .wrap { padding: 40px 20px 60px; }
+  }
+</style>
 </head>
-
 <body>
+<div class="deco"></div>
+<div class="wrap">
 
-  <h1>Ⅰ. 観察記録（言語データ収集）</h1>
+  <header class="header">
+    <div class="breadcrumb">
+      <a href="index.html">世の中の疑問ブログ</a> / Ⅰ. データ収集
+    </div>
+    <div class="page-label">
+      <span class="roman">Ⅰ</span>
+      <h1>観察記録（言語データ収集）</h1>
+    </div>
+    <p class="page-note">
+      日常における違和感・社会現象・言語表現を、評価せず記録する段階。<br>
+      ここでは論理化を行わない。
+    </p>
+  </header>
 
-  <p class="note">
-    日常における違和感・社会現象・言語表現を、評価せず記録する段階。
-    ここでは論理化を行わない。
-  </p>
+  <div class="entries">
+    <div class="entry">
+      <div class="entry-date">2026 / 05 / 20</div>
+      <p class="entry-text">方言漢字なるものを発見した。調べるの面白そう</p>
+    </div>
+    <div class="entry">
+      <div class="entry-date">2026 / 04 / 20</div>
+      <p class="entry-text">え……「はっきり分かんだね」が野獣先輩のセリフなのか。野獣先輩から流行語になってる例はかなりあるみたい。気をつけないと使ってしまう可能性はある</p>
+    </div>
+  </div>
 
-  <h2>観察入力</h2>
-  <li><strong>2026/05/20:</strong> 方言漢字なるものを発見した。調べるの面白そう</li>
-  <li><strong>2026/04/20:</strong> え……「はっきり分かんだね」が野獣先輩のセリフなのか。野獣先輩から流行語になってる例はかなりあるみたい。気をつけないと使ってしまう可能性はある</li>
+  <div class="input-section">
+    <h2>観察入力</h2>
+    <textarea placeholder="気になった言語表現・違和感・社会現象をそのまま書き留める…"></textarea>
+    <button>記録する</button>
+  </div>
 
+</div>
 </body>
 </html>
