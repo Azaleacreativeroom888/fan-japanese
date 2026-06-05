@@ -1,116 +1,290 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-  <meta charset="UTF-8">
-  <title>世の中の疑問ブログ</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>世の中の疑問ブログ</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=Noto+Serif+JP:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-  <style>
-    body {
-      font-family: "Hiragino Mincho ProN", "Yu Mincho", serif;
-      max-width: 900px;
-      margin: 60px auto;
-      padding: 24px;
-      line-height: 1.9;
-      color: #111;
-    }
+  body {
+    font-family: "Noto Serif JP", "Yu Mincho", serif;
+    background: #0a0e18;
+    color: #d8e0ee;
+    min-height: 100vh;
+  }
 
-    h1 {
-      font-size: 26px;
-      font-weight: normal;
-      border-bottom: 1px solid #333;
-      padding-bottom: 10px;
-    }
+  .wrap {
+    max-width: 780px;
+    margin: 0 auto;
+    padding: 64px 32px 80px;
+  }
 
-    h2 {
-      font-size: 18px;
-      margin-top: 40px;
-      border-left: 4px solid #333;
-      padding-left: 10px;
-    }
+  .deco {
+    position: fixed;
+    width: 500px; height: 500px;
+    border-radius: 50%;
+    background: radial-gradient(circle, #0a2050 0%, transparent 70%);
+    top: -100px; right: -150px;
+    pointer-events: none;
+    opacity: 0.5;
+  }
 
-    .section {
-      margin: 20px 0;
-    }
+  /* ── HEADER ── */
+  .header {
+    margin-bottom: 52px;
+    padding-bottom: 32px;
+    border-bottom: 1px solid #1e2a44;
+  }
 
-    .box {
-      border: 1px solid #bbb;
-      padding: 18px;
-      margin: 18px 0;
-    }
+  .eyebrow {
+    font-family: "Cormorant Garamond", serif;
+    font-size: 11px;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    color: #e8b84a;
+    margin-bottom: 10px;
+  }
 
-    a {
-      display: block;
-      margin: 8px 0;
-      color: #000;
-      text-decoration: none;
-    }
+  h1 {
+    font-family: "Cormorant Garamond", serif;
+    font-size: 44px;
+    font-weight: 400;
+    letter-spacing: 0.04em;
+    color: #e8f0ff;
+    line-height: 1.15;
+  }
 
-    a:hover {
-      text-decoration: underline;
-    }
+  .subtitle {
+    font-size: 13px;
+    color: #5a6a88;
+    line-height: 1.9;
+    margin-top: 12px;
+    font-weight: 300;
+  }
 
-    .note {
-      font-size: 14px;
-      color: #444;
-    }
+  .tagline {
+    margin-top: 22px;
+    padding: 18px 22px;
+    border-left: 2px solid #2a4a7a;
+    background: linear-gradient(90deg, #0e1628 0%, transparent 100%);
+  }
 
-    .quote {
-      font-style: italic;
-      color: #333;
-    }
-  </style>
+  .tagline p {
+    font-size: 13px;
+    color: #7a9acc;
+    line-height: 2;
+    font-style: italic;
+  }
+
+  .tagline .arrow { color: #e8b84a; font-style: normal; }
+
+  /* ── SECTIONS ── */
+  .sections { display: flex; flex-direction: column; gap: 2px; }
+
+  .section-item {
+    display: grid;
+    grid-template-columns: 120px 1fr;
+    border: 1px solid #182030;
+    transition: border-color 0.25s;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .section-item::before {
+    content: "";
+    position: absolute; inset: 0;
+    background: linear-gradient(90deg, #0d1a30 0%, transparent 60%);
+    opacity: 0;
+    transition: opacity 0.3s;
+    pointer-events: none;
+  }
+
+  .section-item:hover { border-color: #2a4878; }
+  .section-item:hover::before { opacity: 1; }
+  .section-item:hover .section-link { color: #e8f0ff; }
+
+  .section-item:nth-child(1) { border-top: 2px solid #c0392b; }
+  .section-item:nth-child(2) { border-top: 2px solid #d4a017; }
+  .section-item:nth-child(3) { border-top: 2px solid #1a5a8a; }
+
+  .section-num {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 28px 16px;
+    background: #0c1220;
+    border-right: 1px solid #182030;
+    transition: all 0.25s;
+    position: relative; z-index: 1;
+  }
+
+  .roman {
+    font-family: "Cormorant Garamond", serif;
+    font-size: 24px;
+    font-weight: 400;
+    line-height: 1;
+    transition: color 0.25s;
+  }
+
+  .section-item:nth-child(1) .roman { color: #a03028; }
+  .section-item:nth-child(2) .roman { color: #b88820; }
+  .section-item:nth-child(3) .roman { color: #2e5080; }
+
+  .section-item:hover .roman { color: #6ab0f0 !important; }
+
+  .num-label {
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    color: #2a3850;
+    margin-top: 6px;
+  }
+
+  .section-body {
+    padding: 24px 28px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 8px;
+    position: relative; z-index: 1;
+  }
+
+  .section-link {
+    font-size: 15px;
+    font-weight: 500;
+    color: #8aaad8;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: color 0.2s;
+  }
+
+  .section-link::after {
+    content: "→";
+    font-size: 13px;
+    color: #2a4878;
+    transition: color 0.2s, transform 0.2s;
+    display: inline-block;
+  }
+
+  .section-item:hover .section-link::after {
+    color: #6ab0f0;
+    transform: translateX(4px);
+  }
+
+  .section-note {
+    font-size: 12px;
+    color: #3a4e68;
+    line-height: 1.7;
+    font-weight: 300;
+  }
+
+  /* ── PURPOSE ── */
+  .purpose {
+    margin-top: 48px;
+    padding: 30px 32px;
+    background: #0c1422;
+    border: 1px solid #182030;
+    border-top: 2px solid #2a5898;
+    position: relative;
+  }
+
+  .purpose::before {
+    content: "目的";
+    position: absolute;
+    top: -10px; left: 24px;
+    background: #0a0e18;
+    padding: 0 10px;
+    font-size: 10px;
+    letter-spacing: 0.3em;
+    color: #3a5a88;
+  }
+
+  .purpose p {
+    font-size: 14px;
+    color: #5a7aaa;
+    line-height: 2.2;
+    font-weight: 300;
+  }
+
+  .purpose strong {
+    color: #e8b84a;
+    font-weight: 500;
+  }
+
+  .strikethrough {
+    text-decoration: line-through;
+    color: #c0392b;
+    font-weight: 400;
+  }
+
+  @media (max-width: 560px) {
+    .section-item { grid-template-columns: 80px 1fr; }
+    h1 { font-size: 30px; }
+    .wrap { padding: 40px 20px 60px; }
+  }
+</style>
 </head>
-
 <body>
-
-  <h1>日本語ブログサイト</h1>
-
-  <p class="note">
-    本サイトは、日常的に生じる言語的違和感・社会的事象を対象とし、<br>
-    それらを論理構造に再構成することで日本語を勉強するブログサイトです。
-  </p>
-
-  <div class="box">
-    <p class="quote">
-      「感情」をそのまま表出するのではなく、<br>
-      「問題設定 → 分析 → 論証 → 結論」という形で日本力を鍛える。
+<div class="deco"></div>
+<div class="wrap">
+  <header class="header">
+    <div class="eyebrow">Japanese Writing Practice</div>
+    <h1>世の中の疑問ブログ</h1>
+    <p class="subtitle">
+      日常的に生じる言語的違和感・社会的事象を対象とし、<br>
+      論理構造に再構成することで日本語を鍛えるブログサイト。
     </p>
+    <div class="tagline">
+      <p>「感情」をそのまま表出するのではなく、<br>
+      問題設定 <span class="arrow">→</span> 分析 <span class="arrow">→</span> 論証 <span class="arrow">→</span> 結論という形で日本語力を鍛える。</p>
+    </div>
+  </header>
+
+  <div class="sections">
+    <div class="section-item">
+      <div class="section-num">
+        <span class="roman">Ⅰ</span>
+        <span class="num-label">データ収集</span>
+      </div>
+      <div class="section-body">
+        <a href="blog.html" class="section-link">観察記録の蓄積（違和感・社会的事象）</a>
+        <span class="section-note">未整理の言語データを収集する段階</span>
+      </div>
+    </div>
+
+    <div class="section-item">
+      <div class="section-num">
+        <span class="roman">Ⅱ</span>
+        <span class="num-label">論理変換</span>
+      </div>
+      <div class="section-body">
+        <a href="translation.html" class="section-link">小論文形式への再構成</a>
+        <span class="section-note">問題提起／定義／分析／反論／結論の5段構造を用いる</span>
+      </div>
+    </div>
+
+    <div class="section-item">
+      <div class="section-num">
+        <span class="roman">Ⅲ</span>
+        <span class="num-label">国語学習</span>
+      </div>
+      <div class="section-body">
+        <a href="explanation.html" class="section-link">論理構造・表現技法・日本語表現の解説</a>
+        <span class="section-note">論理展開・接続表現・日本語文法・現代語の習得</span>
+      </div>
+    </div>
   </div>
 
-  <div class="section">
-
-    <h2>Ⅰ. データ収集（ブログ）</h2>
-    <div class="box">
-      <a href="blog.html">・観察記録の蓄積（違和感・社会的事象）</a>
-      <p class="note">未整理の言語データを収集する段階</p>
-    </div>
-
-    <h2>Ⅱ. 論理変換</h2>
-    <div class="box">
-      <a href="translation.html">・小論文形式への再構成</a>
-      <p class="note">
-        問題提起／定義／分析／反論／結論の5段構造を用いる
-      </p>
-    </div>
-
-    <h2>Ⅲ. 国語学習</h2>
-    <div class="box">
-      <a href="explanation.html">・論理構造・表現技法・日本語表現の解説</a>
-      <p class="note">
-        論理展開・接続表現・日本語文法・現代語の習得
-      </p>
-    </div>
-
-  </div>
-
-  <div class="section">
-    <h2>本サイトの目的</h2>
+  <div class="purpose">
     <p>
-      本サイトは作文練習ではなく、<br>
-      日本語で書く能力の訓練を目的とする。<br>
+      本サイトは<span class="strikethrough">作文練習</span>ではなく、<br>
+      <strong>日本語で書く能力の訓練</strong>と<strong>国語運用能力</strong>を目的とする。
     </p>
   </div>
-
+</div>
 </body>
 </html>
