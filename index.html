@@ -9,230 +9,253 @@
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
   body {
-    font-family: "Noto Serif JP", "Yu Mincho", serif;
-    background: #0a0e18;
-    color: #d8e0ee;
+    font-family: "Noto Serif JP", serif;
+    background: #fff5f8;
+    color: #3a1a28;
     min-height: 100vh;
+    overflow-x: hidden;
   }
 
+  /* ── 背景 ── */
+  .bg {
+    position: fixed; inset: 0;
+    background:
+      radial-gradient(ellipse at 80% 10%, #ffd6e8 0%, transparent 50%),
+      radial-gradient(ellipse at 10% 80%, #ffe0f0 0%, transparent 50%),
+      #fff5f8;
+    z-index: 0;
+  }
+
+  /* ── 鳥居 ── */
+  .torii {
+    position: fixed;
+    bottom: 0; right: 40px;
+    width: 200px;
+    opacity: 0.22;
+    z-index: 1;
+    pointer-events: none;
+  }
+
+  .torii-left {
+    position: fixed;
+    bottom: 0; left: -20px;
+    width: 140px;
+    opacity: 0.13;
+    z-index: 1;
+    pointer-events: none;
+    transform: scaleX(-1);
+  }
+
+  /* ── 桜の花びら ── */
+  .petal {
+    position: fixed;
+    top: -30px;
+    opacity: 0;
+    z-index: 2;
+    pointer-events: none;
+    animation: fall linear infinite;
+  }
+
+  @keyframes fall {
+    0%   { transform: translateY(0) rotate(0deg) translateX(0); opacity: 0; }
+    8%   { opacity: 1; }
+    88%  { opacity: 0.8; }
+    100% { transform: translateY(110vh) rotate(600deg) translateX(80px); opacity: 0; }
+  }
+
+  /* ── WRAP ── */
   .wrap {
-    max-width: 780px;
+    position: relative; z-index: 3;
+    max-width: 740px;
     margin: 0 auto;
     padding: 64px 32px 80px;
   }
 
-  .deco {
-    position: fixed;
-    width: 500px; height: 500px;
-    border-radius: 50%;
-    background: radial-gradient(circle, #0a2050 0%, transparent 70%);
-    top: -100px; right: -150px;
-    pointer-events: none;
-    opacity: 0.5;
-  }
-
   /* ── HEADER ── */
   .header {
-    margin-bottom: 52px;
-    padding-bottom: 32px;
-    border-bottom: 1px solid #1e2a44;
+    margin-bottom: 48px;
+    padding-bottom: 28px;
+    border-bottom: 2px dashed #f4a0c0;
   }
 
   .eyebrow {
     font-family: "Cormorant Garamond", serif;
-    font-size: 11px;
+    font-size: 12px;
     letter-spacing: 0.35em;
     text-transform: uppercase;
-    color: #e8b84a;
+    color: #e0608a;
     margin-bottom: 10px;
   }
 
   h1 {
     font-family: "Cormorant Garamond", serif;
-    font-size: 44px;
+    font-size: 46px;
     font-weight: 400;
     letter-spacing: 0.04em;
-    color: #e8f0ff;
+    color: #c03060;
     line-height: 1.15;
+    text-shadow: 2px 2px 0 #ffd0e0;
   }
 
   .subtitle {
     font-size: 13px;
-    color: #5a6a88;
+    color: #9a5070;
     line-height: 1.9;
     margin-top: 12px;
     font-weight: 300;
   }
 
   .tagline {
-    margin-top: 22px;
-    padding: 18px 22px;
-    border-left: 2px solid #2a4a7a;
-    background: linear-gradient(90deg, #0e1628 0%, transparent 100%);
+    margin-top: 20px;
+    padding: 16px 20px;
+    border-left: 3px solid #f080a8;
+    background: #fff0f5;
+    border-radius: 0 8px 8px 0;
   }
 
   .tagline p {
     font-size: 13px;
-    color: #7a9acc;
+    color: #a05070;
     line-height: 2;
     font-style: italic;
   }
 
-  .tagline .arrow { color: #e8b84a; font-style: normal; }
+  .tagline .arrow { color: #e8507a; font-style: normal; font-weight: 500; }
 
   /* ── SECTIONS ── */
-  .sections { display: flex; flex-direction: column; gap: 2px; }
+  .sections { display: flex; flex-direction: column; gap: 10px; }
 
   .section-item {
     display: grid;
-    grid-template-columns: 120px 1fr;
-    border: 1px solid #182030;
-    transition: border-color 0.25s;
-    position: relative;
+    grid-template-columns: 110px 1fr;
+    border: 2px solid #f4c0d0;
+    border-radius: 10px;
+    background: #fff8fa;
     overflow: hidden;
+    transition: all 0.25s;
+    box-shadow: 0 2px 8px #f4c0d022;
   }
 
-  .section-item::before {
-    content: "";
-    position: absolute; inset: 0;
-    background: linear-gradient(90deg, #0d1a30 0%, transparent 60%);
-    opacity: 0;
-    transition: opacity 0.3s;
-    pointer-events: none;
+  .section-item:hover {
+    border-color: #e8709a;
+    box-shadow: 0 4px 18px #f4a0c040;
+    transform: translateY(-2px);
   }
 
-  .section-item:hover { border-color: #2a4878; }
-  .section-item:hover::before { opacity: 1; }
-  .section-item:hover .section-link { color: #e8f0ff; }
+  .section-item:hover .section-link { color: #c03060; }
+  .section-item:hover .roman { opacity: 1; }
 
-  .section-item:nth-child(1) { border-top: 2px solid #c0392b; }
-  .section-item:nth-child(2) { border-top: 2px solid #d4a017; }
-  .section-item:nth-child(3) { border-top: 2px solid #1a5a8a; }
+  .section-item:nth-child(1) { border-top: 4px solid #e8405a; }
+  .section-item:nth-child(2) { border-top: 4px solid #e87098; }
+  .section-item:nth-child(3) { border-top: 4px solid #f0a0c0; }
 
   .section-num {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding: 28px 16px;
-    background: #0c1220;
-    border-right: 1px solid #182030;
-    transition: all 0.25s;
-    position: relative; z-index: 1;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    padding: 24px 12px;
+    border-right: 2px dashed #f4c0d0;
   }
+
+  .section-item:nth-child(1) .roman { color: #e8405a; }
+  .section-item:nth-child(2) .roman { color: #e87098; }
+  .section-item:nth-child(3) .roman { color: #d060a0; }
 
   .roman {
     font-family: "Cormorant Garamond", serif;
-    font-size: 24px;
-    font-weight: 400;
+    font-size: 26px; font-weight: 400;
     line-height: 1;
-    transition: color 0.25s;
+    opacity: 0.85;
+    transition: opacity 0.2s;
   }
 
-  .section-item:nth-child(1) .roman { color: #a03028; }
-  .section-item:nth-child(2) .roman { color: #b88820; }
-  .section-item:nth-child(3) .roman { color: #2e5080; }
-
-  .section-item:hover .roman { color: #6ab0f0 !important; }
-
   .num-label {
-    font-size: 9px;
-    letter-spacing: 0.2em;
-    color: #2a3850;
-    margin-top: 6px;
+    font-size: 9px; letter-spacing: 0.15em;
+    color: #d090a8; margin-top: 6px;
   }
 
   .section-body {
-    padding: 24px 28px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    gap: 8px;
-    position: relative; z-index: 1;
+    padding: 20px 22px;
+    display: flex; flex-direction: column;
+    justify-content: center; gap: 6px;
   }
 
   .section-link {
-    font-size: 15px;
-    font-weight: 500;
-    color: #8aaad8;
-    text-decoration: none;
-    display: flex;
-    align-items: center;
-    gap: 8px;
+    font-size: 14px; font-weight: 500;
+    color: #b04868; text-decoration: none;
+    display: flex; align-items: center; gap: 8px;
     transition: color 0.2s;
   }
 
   .section-link::after {
-    content: "→";
-    font-size: 13px;
-    color: #2a4878;
+    content: "→"; font-size: 13px;
+    color: #f090b0;
     transition: color 0.2s, transform 0.2s;
     display: inline-block;
   }
 
   .section-item:hover .section-link::after {
-    color: #6ab0f0;
+    color: #e8405a;
     transform: translateX(4px);
   }
 
   .section-note {
-    font-size: 12px;
-    color: #3a4e68;
-    line-height: 1.7;
-    font-weight: 300;
+    font-size: 11px; color: #c098a8;
+    line-height: 1.7; font-weight: 300;
   }
 
   /* ── PURPOSE ── */
   .purpose {
-    margin-top: 48px;
-    padding: 30px 32px;
-    background: #0c1422;
-    border: 1px solid #182030;
-    border-top: 2px solid #2a5898;
+    margin-top: 36px; padding: 26px 28px;
+    background: #fff0f5;
+    border: 2px solid #f4c0d0;
+    border-radius: 10px;
     position: relative;
   }
 
   .purpose::before {
-    content: "目的";
-    position: absolute;
-    top: -10px; left: 24px;
-    background: #0a0e18;
-    padding: 0 10px;
-    font-size: 10px;
-    letter-spacing: 0.3em;
-    color: #3a5a88;
+    content: "✿ 目的 ✿";
+    position: absolute; top: -12px; left: 20px;
+    background: #fff5f8; padding: 0 10px;
+    font-size: 11px; letter-spacing: 0.2em; color: #e880a8;
   }
 
-  .purpose p {
-    font-size: 14px;
-    color: #5a7aaa;
-    line-height: 2.2;
-    font-weight: 300;
-  }
+  .purpose p { font-size: 13px; color: #9a6070; line-height: 2.2; font-weight: 300; }
+  .purpose strong { color: #e03868; font-weight: 500; }
+  .strikethrough { text-decoration: line-through; color: #e090a8; }
 
-  .purpose strong {
-    color: #e8b84a;
-    font-weight: 500;
-  }
-
-  .strikethrough {
-    text-decoration: line-through;
-    color: #c0392b;
-    font-weight: 400;
-  }
-
-  @media (max-width: 560px) {
-    .section-item { grid-template-columns: 80px 1fr; }
-    h1 { font-size: 30px; }
-    .wrap { padding: 40px 20px 60px; }
-  }
+  .sakura-deco { color: #e880a8; margin: 0 4px; }
 </style>
 </head>
 <body>
-<div class="deco"></div>
+<div class="bg"></div>
+
+<!-- 鳥居 右 -->
+<svg class="torii" viewBox="0 0 200 320" xmlns="http://www.w3.org/2000/svg">
+  <rect x="0" y="28" width="200" height="16" rx="4" fill="#e03060"/>
+  <rect x="-8" y="22" width="16" height="26" rx="3" fill="#e03060"/>
+  <rect x="192" y="22" width="16" height="26" rx="3" fill="#e03060"/>
+  <rect x="12" y="54" width="176" height="11" rx="3" fill="#e03060"/>
+  <rect x="32" y="108" width="136" height="9" rx="2" fill="#c02848"/>
+  <rect x="42" y="62" width="20" height="258" rx="5" fill="#c02848"/>
+  <rect x="138" y="62" width="20" height="258" rx="5" fill="#c02848"/>
+</svg>
+
+<!-- 鳥居 左 -->
+<svg class="torii-left" viewBox="0 0 200 320" xmlns="http://www.w3.org/2000/svg">
+  <rect x="0" y="28" width="200" height="16" rx="4" fill="#e03060"/>
+  <rect x="-8" y="22" width="16" height="26" rx="3" fill="#e03060"/>
+  <rect x="192" y="22" width="16" height="26" rx="3" fill="#e03060"/>
+  <rect x="12" y="54" width="176" height="11" rx="3" fill="#e03060"/>
+  <rect x="32" y="108" width="136" height="9" rx="2" fill="#c02848"/>
+  <rect x="42" y="62" width="20" height="258" rx="5" fill="#c02848"/>
+  <rect x="138" y="62" width="20" height="258" rx="5" fill="#c02848"/>
+</svg>
+
+<div id="petals"></div>
+
 <div class="wrap">
   <header class="header">
-    <div class="eyebrow">Japanese Writing Practice</div>
+    <div class="eyebrow">Japanese Writing Practice <span class="sakura-deco">✿</span></div>
     <h1>世の中の疑問ブログ</h1>
     <p class="subtitle">
       日常的に生じる言語的違和感・社会的事象を対象とし、<br>
@@ -282,9 +305,33 @@
   <div class="purpose">
     <p>
       本サイトは<span class="strikethrough">作文練習</span>ではなく、<br>
-      <strong>日本語で書く能力の訓練</strong>と<strong>国語運用能力</strong>を目的とする。
+      <strong>日本語で書く能力の訓練</strong>を目的とする。
     </p>
   </div>
 </div>
+
+<script>
+  const container = document.getElementById('petals');
+  const colors = ['#f090b8','#e86090','#ffc0d8','#f04878','#ffaac8','#f8d0e0'];
+
+  for (let i = 0; i < 32; i++) {
+    const petal = document.createElement('div');
+    petal.className = 'petal';
+    const size = 10 + Math.random() * 14;
+    const color = colors[Math.floor(Math.random() * colors.length)];
+    const drift = (Math.random() - 0.5) * 120;
+    petal.style.cssText = `
+      left: ${Math.random() * 100}vw;
+      width: ${size}px; height: ${size * 1.2}px;
+      animation-duration: ${6 + Math.random() * 9}s;
+      animation-delay: ${Math.random() * 12}s;
+    `;
+    petal.innerHTML = `<svg viewBox="0 0 24 28" xmlns="http://www.w3.org/2000/svg" width="${size}" height="${size*1.2}">
+      <ellipse cx="12" cy="14" rx="8" ry="12" fill="${color}" opacity="0.9"/>
+      <ellipse cx="12" cy="10" rx="4" ry="6" fill="white" opacity="0.25"/>
+    </svg>`;
+    container.appendChild(petal);
+  }
+</script>
 </body>
 </html>
