@@ -9,24 +9,60 @@
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
   body {
-    font-family: "Noto Serif JP", "Yu Mincho", serif;
-    background: #0a0e18;
-    color: #d8e0ee;
+    font-family: "Noto Serif JP", serif;
+    background: #fff5f8;
+    color: #3a1a28;
     min-height: 100vh;
+    overflow-x: hidden;
   }
 
-  .deco {
+  .bg {
+    position: fixed; inset: 0;
+    background:
+      radial-gradient(ellipse at 80% 10%, #ffd6e8 0%, transparent 50%),
+      radial-gradient(ellipse at 10% 80%, #ffe0f0 0%, transparent 50%),
+      #fff5f8;
+    z-index: 0;
+  }
+
+  .torii {
     position: fixed;
-    width: 500px; height: 500px;
-    border-radius: 50%;
-    background: radial-gradient(circle, #0a2050 0%, transparent 70%);
-    top: -100px; right: -150px;
+    bottom: 0; right: 40px;
+    width: 200px;
+    opacity: 0.22;
+    z-index: 1;
     pointer-events: none;
-    opacity: 0.5;
+  }
+
+  .torii-left {
+    position: fixed;
+    bottom: 0; left: -20px;
+    width: 140px;
+    opacity: 0.13;
+    z-index: 1;
+    pointer-events: none;
+    transform: scaleX(-1);
+  }
+
+  .petal {
+    position: fixed;
+    top: -30px;
+    opacity: 0;
+    z-index: 2;
+    pointer-events: none;
+    animation: fall linear infinite;
+  }
+
+  @keyframes fall {
+    0%   { transform: translateY(0) rotate(0deg) translateX(0); opacity: 0; }
+    8%   { opacity: 1; }
+    88%  { opacity: 0.8; }
+    100% { transform: translateY(110vh) rotate(600deg) translateX(80px); opacity: 0; }
   }
 
   .wrap {
-    max-width: 780px;
+    position: relative; z-index: 3;
+    max-width: 740px;
     margin: 0 auto;
     padding: 64px 32px 80px;
   }
@@ -35,19 +71,19 @@
   .header {
     margin-bottom: 48px;
     padding-bottom: 28px;
-    border-bottom: 1px solid #1e2a44;
+    border-bottom: 2px dashed #f4a0c0;
   }
 
   .breadcrumb {
     font-family: "Cormorant Garamond", serif;
     font-size: 11px;
     letter-spacing: 0.3em;
-    color: #4a6a9a;
+    color: #d090a8;
     margin-bottom: 12px;
   }
 
   .breadcrumb a {
-    color: #e8b84a;
+    color: #e03868;
     text-decoration: none;
   }
 
@@ -56,7 +92,7 @@
   .page-label {
     display: flex;
     align-items: center;
-    gap: 16px;
+    gap: 14px;
     margin-bottom: 10px;
   }
 
@@ -64,7 +100,7 @@
     font-family: "Cormorant Garamond", serif;
     font-size: 36px;
     font-weight: 400;
-    color: #b88820;
+    color: #e87098;
     line-height: 1;
   }
 
@@ -73,192 +109,155 @@
     font-size: 30px;
     font-weight: 400;
     letter-spacing: 0.04em;
-    color: #e8f0ff;
+    color: #c03060;
     line-height: 1.2;
+    text-shadow: 1px 1px 0 #ffd0e0;
   }
 
   .page-note {
     font-size: 13px;
-    color: #5a6a88;
+    color: #9a5070;
     line-height: 1.9;
     font-weight: 300;
     margin-top: 10px;
   }
 
-  /* ── FLOW ── */
-  .flow {
-    display: flex;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 2px;
-    margin-bottom: 40px;
-  }
-
-  .flow-step {
-    font-size: 10px;
-    letter-spacing: 0.15em;
-    color: #3a5070;
-    padding: 5px 10px;
-    border: 1px solid #182030;
-    background: #0c1220;
-  }
-
-  .flow-arrow {
-    font-size: 11px;
-    color: #e8b84a;
-    padding: 0 2px;
-  }
-
-  /* ── LOG ENTRY (日付でまとめる単位) ── */
-  .log-entries {
+  /* ── ENTRIES ── */
+  .entries {
     display: flex;
     flex-direction: column;
-    gap: 40px;
+    gap: 24px;
   }
 
-  .log-entry {
-    border: 1px solid #182030;
-    border-top: 2px solid #d4a017;
-    background: #0c1220;
+  .entry {
+    background: #fff8fa;
+    border: 2px solid #f4c0d0;
+    border-top: 4px solid #e87098;
+    border-radius: 10px;
+    padding: 28px 30px;
+    box-shadow: 0 2px 10px #f4c0d022;
+    transition: box-shadow 0.25s, transform 0.25s;
   }
 
-  .log-date {
+  .entry:hover {
+    box-shadow: 0 6px 20px #f4a0c040;
+    transform: translateY(-2px);
+  }
+
+  .entry-meta {
+    display: flex;
+    align-items: baseline;
+    gap: 14px;
+    margin-bottom: 18px;
+    padding-bottom: 12px;
+    border-bottom: 1px dashed #f4c0d0;
+  }
+
+  .entry-date {
     font-family: "Cormorant Garamond", serif;
     font-size: 13px;
     letter-spacing: 0.25em;
-    color: #e8b84a;
-    padding: 14px 22px;
-    border-bottom: 1px solid #182030;
+    color: #e03868;
   }
 
-  /* ── SECTIONS inside each log ── */
-  .section {
-    border-bottom: 1px solid #10182a;
-    padding: 16px 22px;
-    display: grid;
-    grid-template-columns: 120px 1fr;
-    gap: 0;
-  }
-
-  .section:last-child { border-bottom: none; }
-  .section:hover { background: #0e1628; }
-
-  .section-label {
-    display: flex;
-    align-items: baseline;
-    gap: 7px;
-    padding-right: 16px;
-    border-right: 1px solid #182030;
-  }
-
-  .section-num {
-    font-family: "Cormorant Garamond", serif;
+  .entry-title {
     font-size: 15px;
-    color: #e8b84a;
+    font-weight: 500;
+    color: #a03858;
+    letter-spacing: 0.05em;
   }
 
-  h2 {
-    font-family: "Cormorant Garamond", serif;
-    font-size: 12px;
-    font-weight: 400;
-    letter-spacing: 0.08em;
-    color: #4a6a8a;
-  }
-
-  .section-text {
-    font-size: 13px;
-    color: #8aaad8;
-    line-height: 1.9;
+  .entry-body {
+    font-size: 14px;
+    color: #6a3848;
+    line-height: 2.1;
     font-weight: 300;
-    padding-left: 18px;
   }
 
-  @media (max-width: 560px) {
-    h1 { font-size: 22px; }
-    .roman { font-size: 28px; }
-    .wrap { padding: 40px 20px 60px; }
-    .section { grid-template-columns: 1fr; }
-    .section-label { border-right: none; padding-right: 0; margin-bottom: 6px; }
-    .section-text { padding-left: 0; }
+  .entry-body p + p {
+    margin-top: 1em;
   }
+
 </style>
 </head>
 <body>
-<div class="deco"></div>
-<div class="wrap">
+<div class="bg"></div>
 
+<svg class="torii" viewBox="0 0 200 320" xmlns="http://www.w3.org/2000/svg">
+  <rect x="0" y="28" width="200" height="16" rx="4" fill="#e03060"/>
+  <rect x="-8" y="22" width="16" height="26" rx="3" fill="#e03060"/>
+  <rect x="192" y="22" width="16" height="26" rx="3" fill="#e03060"/>
+  <rect x="12" y="54" width="176" height="11" rx="3" fill="#e03060"/>
+  <rect x="32" y="108" width="136" height="9" rx="2" fill="#c02848"/>
+  <rect x="42" y="62" width="20" height="258" rx="5" fill="#c02848"/>
+  <rect x="138" y="62" width="20" height="258" rx="5" fill="#c02848"/>
+</svg>
+
+<svg class="torii-left" viewBox="0 0 200 320" xmlns="http://www.w3.org/2000/svg">
+  <rect x="0" y="28" width="200" height="16" rx="4" fill="#e03060"/>
+  <rect x="-8" y="22" width="16" height="26" rx="3" fill="#e03060"/>
+  <rect x="192" y="22" width="16" height="26" rx="3" fill="#e03060"/>
+  <rect x="12" y="54" width="176" height="11" rx="3" fill="#e03060"/>
+  <rect x="32" y="108" width="136" height="9" rx="2" fill="#c02848"/>
+  <rect x="42" y="62" width="20" height="258" rx="5" fill="#c02848"/>
+  <rect x="138" y="62" width="20" height="258" rx="5" fill="#c02848"/>
+</svg>
+
+<div id="petals"></div>
+
+<div class="wrap">
   <header class="header">
     <div class="breadcrumb">
       <a href="index.html">世の中の疑問ブログ</a> / Ⅱ. 論理変換
     </div>
     <div class="page-label">
       <span class="roman">Ⅱ</span>
-      <h1>小論文構築（論理変換）</h1>
+      <h1>世の中の疑問を解く</h1>
     </div>
-    <p class="page-note">観察された事象を、5構造に分解・再構成した記録。</p>
+    <p class="page-note">日常の違和感を小論文形式で考えてみる記録。</p>
   </header>
 
-  <div class="flow">
-    <span class="flow-step">問題提起</span>
-    <span class="flow-arrow">→</span>
-    <span class="flow-step">概念定義</span>
-    <span class="flow-arrow">→</span>
-    <span class="flow-step">分析</span>
-    <span class="flow-arrow">→</span>
-    <span class="flow-step">反論想定</span>
-    <span class="flow-arrow">→</span>
-    <span class="flow-step">結論</span>
-  </div>
+  <div class="entries">
 
-  <div class="log-entries">
-
-    <!-- エントリー例：新しい日付のまとまりをここにコピペして追加 -->
-    <div class="log-entry">
-      <div class="log-date">2026 / 05 / 20</div>
-
-      <div class="section">
-        <div class="section-label">
-          <span class="section-num">①</span>
-          <h2>問題提起</h2>
-        </div>
-        <p class="section-text">なぜ日本語では「曖昧な表現」が肯定的に評価されるのか。</p>
+    <div class="entry">
+      <div class="entry-meta">
+        <span class="entry-date">2026 / 05 / 20</span>
+        <span class="entry-title">日本語はなぜ曖昧なのか</span>
       </div>
-
-      <div class="section">
-        <div class="section-label">
-          <span class="section-num">②</span>
-          <h2>概念定義</h2>
-        </div>
-        <p class="section-text">「曖昧さ」とは、命題の真偽が文脈に依存し、単独では確定しない言語状態を指す。</p>
-      </div>
-
-      <div class="section">
-        <div class="section-label">
-          <span class="section-num">③</span>
-          <h2>分析</h2>
-        </div>
-        <p class="section-text">共同体的コミュニケーションでは、断定による関係毀損を避けるため、曖昧さが潤滑剤として機能する。</p>
-      </div>
-
-      <div class="section">
-        <div class="section-label">
-          <span class="section-num">④</span>
-          <h2>反論想定</h2>
-        </div>
-        <p class="section-text">「曖昧さは非論理的」という批判は、論理と関係維持を同一の目的に置く誤りを含む。</p>
-      </div>
-
-      <div class="section">
-        <div class="section-label">
-          <span class="section-num">⑤</span>
-          <h2>結論</h2>
-        </div>
-        <p class="section-text">日本語の曖昧さは欠陥ではなく、関係優先の言語設計における合理的選択である。</p>
+      <div class="entry-body">
+        <p>日本語には「なんとなく」「ちょっと」「一応」など、意味を曖昧にする表現が多く存在する。なぜ日本語話者はこれほど曖昧な言い回しを好むのか。</p>
+        <p>ここでいう「曖昧さ」とは、命題の真偽が文脈に依存し、単独では確定しない言語状態を指す。断定を避け、相手の解釈に委ねる言語的戦略である。</p>
+        <p>共同体的なコミュニケーションでは、断定による関係毀損を避けるため、曖昧さが潤滑剤として機能する。「行けたら行く」は拒絶ではなく、関係を維持したままの保留である。</p>
+        <p>「曖昧さは非論理的だ」という批判もある。しかしこれは、論理的明晰さと関係維持を同一の目的に置く誤りを含む。言語はつねに論理のためだけに使われるわけではない。</p>
+        <p>日本語の曖昧さは欠陥ではなく、関係優先の言語設計における合理的選択である。それを「論理的でない」と断じることは、異なる価値基準を押しつけることに等しい。</p>
       </div>
     </div>
 
-  </div>
+    <!-- 新しいエントリーはここに追加 -->
 
+  </div>
 </div>
+
+<script>
+  const container = document.getElementById('petals');
+  const colors = ['#f090b8','#e86090','#ffc0d8','#f04878','#ffaac8','#f8d0e0'];
+  for (let i = 0; i < 32; i++) {
+    const petal = document.createElement('div');
+    petal.className = 'petal';
+    const size = 10 + Math.random() * 14;
+    const color = colors[Math.floor(Math.random() * colors.length)];
+    petal.style.cssText = `
+      left: ${Math.random() * 100}vw;
+      width: ${size}px; height: ${size * 1.2}px;
+      animation-duration: ${6 + Math.random() * 9}s;
+      animation-delay: ${Math.random() * 12}s;
+    `;
+    petal.innerHTML = `<svg viewBox="0 0 24 28" xmlns="http://www.w3.org/2000/svg" width="${size}" height="${size*1.2}">
+      <ellipse cx="12" cy="14" rx="8" ry="12" fill="${color}" opacity="0.9"/>
+      <ellipse cx="12" cy="10" rx="4" ry="6" fill="white" opacity="0.25"/>
+    </svg>`;
+    container.appendChild(petal);
+  }
+</script>
 </body>
 </html>
