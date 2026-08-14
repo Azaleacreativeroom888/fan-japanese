@@ -9,170 +9,157 @@
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
   body {
-    font-family: "Noto Serif JP", "Yu Mincho", serif;
-    background: #0a0e18;
-    color: #d8e0ee;
+    font-family: "Noto Serif JP", serif;
+    background: #fff5f8;
+    color: #3a1a28;
     min-height: 100vh;
+    overflow-x: hidden;
   }
 
-  .deco {
-    position: fixed;
-    width: 500px; height: 500px;
-    border-radius: 50%;
-    background: radial-gradient(circle, #0a2050 0%, transparent 70%);
-    top: -100px; right: -150px;
-    pointer-events: none;
-    opacity: 0.5;
+  .bg {
+    position: fixed; inset: 0;
+    background:
+      radial-gradient(ellipse at 80% 10%, #ffd6e8 0%, transparent 50%),
+      radial-gradient(ellipse at 10% 80%, #ffe0f0 0%, transparent 50%),
+      #fff5f8;
+    z-index: 0;
+  }
+
+  .torii {
+    position: fixed; bottom: 0; right: 40px;
+    width: 200px; opacity: 0.22; z-index: 1; pointer-events: none;
+  }
+
+  .torii-left {
+    position: fixed; bottom: 0; left: -20px;
+    width: 140px; opacity: 0.13; z-index: 1; pointer-events: none;
+    transform: scaleX(-1);
+  }
+
+  .petal {
+    position: fixed; top: -30px; opacity: 0; z-index: 2;
+    pointer-events: none; animation: fall linear infinite;
+  }
+
+  @keyframes fall {
+    0%   { transform: translateY(0) rotate(0deg) translateX(0); opacity: 0; }
+    8%   { opacity: 1; }
+    88%  { opacity: 0.8; }
+    100% { transform: translateY(110vh) rotate(600deg) translateX(80px); opacity: 0; }
   }
 
   .wrap {
-    max-width: 780px;
-    margin: 0 auto;
-    padding: 64px 32px 80px;
+    position: relative; z-index: 3;
+    max-width: 740px; margin: 0 auto; padding: 64px 32px 80px;
   }
 
-  /* ── HEADER ── */
   .header {
-    margin-bottom: 48px;
-    padding-bottom: 28px;
-    border-bottom: 1px solid #1e2a44;
+    margin-bottom: 48px; padding-bottom: 28px;
+    border-bottom: 2px dashed #f4a0c0;
   }
 
   .breadcrumb {
     font-family: "Cormorant Garamond", serif;
-    font-size: 11px;
-    letter-spacing: 0.3em;
-    color: #4a6a9a;
-    margin-bottom: 12px;
+    font-size: 11px; letter-spacing: 0.3em; color: #d090a8; margin-bottom: 12px;
   }
 
-  .breadcrumb a {
-    color: #e8b84a;
-    text-decoration: none;
-  }
-
+  .breadcrumb a { color: #e03868; text-decoration: none; }
   .breadcrumb a:hover { text-decoration: underline; }
 
-  .page-label {
-    display: flex;
-    align-items: center;
-    gap: 16px;
-    margin-bottom: 10px;
-  }
+  .page-label { display: flex; align-items: center; gap: 14px; margin-bottom: 10px; }
 
   .roman {
     font-family: "Cormorant Garamond", serif;
-    font-size: 36px;
-    font-weight: 400;
-    color: #2e5080;
-    line-height: 1;
+    font-size: 36px; font-weight: 400; color: #d060a0; line-height: 1;
   }
 
   h1 {
     font-family: "Cormorant Garamond", serif;
-    font-size: 30px;
-    font-weight: 400;
-    letter-spacing: 0.04em;
-    color: #e8f0ff;
-    line-height: 1.2;
+    font-size: 30px; font-weight: 400; letter-spacing: 0.04em;
+    color: #c03060; line-height: 1.2; text-shadow: 1px 1px 0 #ffd0e0;
   }
 
   .page-note {
-    font-size: 13px;
-    color: #5a6a88;
-    line-height: 1.9;
-    font-weight: 300;
-    margin-top: 10px;
+    font-size: 13px; color: #9a5070; line-height: 1.9; font-weight: 300; margin-top: 10px;
   }
 
-  /* ── ITEMS ── */
-  .items {
-    display: flex;
-    flex-direction: column;
-    gap: 2px;
-  }
+  .items { display: flex; flex-direction: column; gap: 10px; }
 
   .item {
-    border: 1px solid #182030;
-    border-left: 3px solid #1a5a8a;
-    background: #0c1220;
-    transition: border-color 0.2s, background 0.2s;
-    overflow: hidden;
+    background: #fff8fa; border: 2px solid #f4c0d0;
+    border-top: 4px solid #f0a0c0; border-radius: 10px;
+    overflow: hidden; box-shadow: 0 2px 8px #f4c0d022;
+    transition: box-shadow 0.25s, transform 0.25s;
   }
 
   .item:hover {
-    border-color: #2a4878;
-    border-left-color: #4a90d0;
-    background: #0e1628;
+    box-shadow: 0 6px 18px #f4a0c040; transform: translateY(-2px);
   }
 
   .item-header {
-    display: flex;
-    align-items: center;
-    gap: 14px;
-    padding: 18px 24px;
-    border-bottom: 1px solid #182030;
+    display: flex; align-items: center; gap: 14px;
+    padding: 16px 22px; border-bottom: 1px dashed #f4c0d0;
   }
 
   .item-num {
     font-family: "Cormorant Garamond", serif;
-    font-size: 22px;
-    font-weight: 400;
-    color: #e8b84a;
-    line-height: 1;
-    min-width: 20px;
+    font-size: 22px; font-weight: 400; color: #e03868; line-height: 1; min-width: 20px;
   }
 
   h2 {
     font-family: "Cormorant Garamond", serif;
-    font-size: 18px;
-    font-weight: 400;
-    letter-spacing: 0.06em;
-    color: #a8c4e8;
+    font-size: 17px; font-weight: 400; letter-spacing: 0.06em; color: #a03858;
   }
 
-  .item-body {
-    padding: 18px 24px 20px 62px;
-  }
+  .item-body { padding: 16px 22px 20px 58px; }
 
   .item-body p {
-    font-size: 13px;
-    color: #6a8aaa;
-    line-height: 2;
-    font-weight: 300;
+    font-size: 13px; color: #6a3848; line-height: 2; font-weight: 300;
   }
 
-  .item-body .arrow { color: #e8b84a; }
+  .item-body .arrow { color: #e03868; }
 
   .example {
-    margin-top: 10px;
-    padding: 10px 14px;
-    border-left: 2px solid #2a4a7a;
-    background: #08100e;
-    font-size: 12px;
-    color: #5a7a9a;
-    line-height: 1.9;
-    font-style: italic;
+    margin-top: 10px; padding: 10px 14px;
+    border-left: 2px solid #f4a0c0; background: #fff0f5;
+    font-size: 12px; color: #a06070; line-height: 1.9; font-style: italic;
+    border-radius: 0 6px 6px 0;
   }
 
-  .example .arrow { color: #e8b84a; font-style: normal; }
+  .example .arrow { color: #e03868; font-style: normal; }
 
   @media (max-width: 560px) {
-    h1 { font-size: 22px; }
-    .roman { font-size: 28px; }
-    .wrap { padding: 40px 20px 60px; }
-    .item-body { padding-left: 24px; }
+    h1 { font-size: 22px; } .roman { font-size: 28px; }
+    .wrap { padding: 40px 20px 60px; } .item-body { padding-left: 22px; }
   }
 </style>
 </head>
 <body>
-<div class="deco"></div>
-<div class="wrap">
+<div class="bg"></div>
 
+<svg class="torii" viewBox="0 0 200 320" xmlns="http://www.w3.org/2000/svg">
+  <rect x="0" y="28" width="200" height="16" rx="4" fill="#e03060"/>
+  <rect x="-8" y="22" width="16" height="26" rx="3" fill="#e03060"/>
+  <rect x="192" y="22" width="16" height="26" rx="3" fill="#e03060"/>
+  <rect x="12" y="54" width="176" height="11" rx="3" fill="#e03060"/>
+  <rect x="32" y="108" width="136" height="9" rx="2" fill="#c02848"/>
+  <rect x="42" y="62" width="20" height="258" rx="5" fill="#c02848"/>
+  <rect x="138" y="62" width="20" height="258" rx="5" fill="#c02848"/>
+</svg>
+<svg class="torii-left" viewBox="0 0 200 320" xmlns="http://www.w3.org/2000/svg">
+  <rect x="0" y="28" width="200" height="16" rx="4" fill="#e03060"/>
+  <rect x="-8" y="22" width="16" height="26" rx="3" fill="#e03060"/>
+  <rect x="192" y="22" width="16" height="26" rx="3" fill="#e03060"/>
+  <rect x="12" y="54" width="176" height="11" rx="3" fill="#e03060"/>
+  <rect x="32" y="108" width="136" height="9" rx="2" fill="#c02848"/>
+  <rect x="42" y="62" width="20" height="258" rx="5" fill="#c02848"/>
+  <rect x="138" y="62" width="20" height="258" rx="5" fill="#c02848"/>
+</svg>
+<div id="petals"></div>
+
+<div class="wrap">
   <header class="header">
-    <div class="breadcrumb">
-      <a href="index.html">世の中の疑問ブログ</a> / Ⅲ. 国語学習
-    </div>
+    <div class="breadcrumb"><a href="index.html">世の中の疑問ブログ</a> / Ⅲ. 国語学習</div>
     <div class="page-label">
       <span class="roman">Ⅲ</span>
       <h1>論理構造・国語理論</h1>
@@ -182,46 +169,42 @@
 
   <div class="items">
 
-   <div class="item">
+    <div class="item">
       <div class="item-header">
         <span class="item-num">7</span>
         <h2>単語解説 「唯我的」と「独我的」</h2>
       </div>
       <div class="item-body">
         <p>
-         「唯我的」 ＝ 自分が最も尊い存在であるという考え（＝唯我独尊）<br>
-         「独我的」 ＝ 自分の意識だけが実在し、他者の存在や外部の世界は証明できないという哲学的な考え方（＝独我論）<br>
+          「唯我的」 ＝ 自分が最も尊い存在であるという考え（＝唯我独尊）<br>
+          「独我的」 ＝ 自分の意識だけが実在し、他者の存在や外部の世界は証明できないという哲学的な考え方（＝独我論）
         </p>
       </div>
     </div>
 
-   <div class="item">
+    <div class="item">
       <div class="item-header">
         <span class="item-num">6</span>
         <h2>単語解説 「十把一絡げ（じっぱひとからげ）」</h2>
       </div>
       <div class="item-body">
         <p>
-         「十把一絡げ（じっぱひとからげ）」 ＝ 
-       どれもこれもあまり価値のないものとして、多数をひとめとめに扱うこと。
-       また、なにもかも一緒くたにして扱うこと。
-       例文：「最近の若者は十把一絡げに見られることがある」<br>
+          「十把一絡げ（じっぱひとからげ）」 ＝ どれもこれもあまり価値のないものとして、多数をひとまとめに扱うこと。また、なにもかも一緒くたにして扱うこと。<br>
+          例文：「最近の若者は十把一絡げに見られることがある」
         </p>
       </div>
     </div>
 
-   
-
-   <div class="item">
+    <div class="item">
       <div class="item-header">
         <span class="item-num">5</span>
         <h2>熟語解説 「白羽の矢が立つ」</h2>
       </div>
       <div class="item-body">
         <p>
-         「白羽の矢が立つ」　＝　多くの人の中で、これぞと思う人が特に選び定められる。また、犠牲者になる。<br>
-         日本古来の風習あるいは伝承によれば、生贄を求める神は求める対象とする少女の家の屋根に、白羽の矢を目印として立てたという。このことから転じて、「白羽の矢が立つ」の形式で「多くのものの中から犠牲者として選び出される」という意味として使われる。（Wikipedia）<br>
-         白羽の矢に関する伝承はいくつか残っている。<br>
+          「白羽の矢が立つ」　＝　多くの人の中で、これぞと思う人が特に選び定められる。また、犠牲者になる。<br>
+          日本古来の風習あるいは伝承によれば、生贄を求める神は求める対象とする少女の家の屋根に、白羽の矢を目印として立てたという。このことから転じて、「白羽の矢が立つ」の形式で「多くのものの中から犠牲者として選び出される」という意味として使われる。（Wikipedia）<br>
+          白羽の矢に関する伝承はいくつか残っている。
         </p>
       </div>
     </div>
@@ -273,7 +256,20 @@
     </div>
 
   </div>
-
 </div>
+
+<script>
+  const container = document.getElementById('petals');
+  const colors = ['#f090b8','#e86090','#ffc0d8','#f04878','#ffaac8','#f8d0e0'];
+  for (let i = 0; i < 32; i++) {
+    const petal = document.createElement('div');
+    petal.className = 'petal';
+    const size = 10 + Math.random() * 14;
+    const color = colors[Math.floor(Math.random() * colors.length)];
+    petal.style.cssText = `left:${Math.random()*100}vw;width:${size}px;height:${size*1.2}px;animation-duration:${6+Math.random()*9}s;animation-delay:${Math.random()*12}s;`;
+    petal.innerHTML = `<svg viewBox="0 0 24 28" xmlns="http://www.w3.org/2000/svg" width="${size}" height="${size*1.2}"><ellipse cx="12" cy="14" rx="8" ry="12" fill="${color}" opacity="0.9"/><ellipse cx="12" cy="10" rx="4" ry="6" fill="white" opacity="0.25"/></svg>`;
+    container.appendChild(petal);
+  }
+</script>
 </body>
 </html>
