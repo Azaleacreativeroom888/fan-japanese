@@ -9,200 +9,134 @@
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
   body {
-    font-family: "Noto Serif JP", "Yu Mincho", serif;
-    background: #0a0e18;
-    color: #d8e0ee;
+    font-family: "Noto Serif JP", serif;
+    background: #fff5f8;
+    color: #3a1a28;
     min-height: 100vh;
+    overflow-x: hidden;
   }
 
-  .deco {
-    position: fixed;
-    width: 500px; height: 500px;
-    border-radius: 50%;
-    background: radial-gradient(circle, #0a2050 0%, transparent 70%);
-    top: -100px; right: -150px;
-    pointer-events: none;
-    opacity: 0.5;
+  .bg {
+    position: fixed; inset: 0;
+    background:
+      radial-gradient(ellipse at 80% 10%, #ffd6e8 0%, transparent 50%),
+      radial-gradient(ellipse at 10% 80%, #ffe0f0 0%, transparent 50%),
+      #fff5f8;
+    z-index: 0;
+  }
+
+  .torii {
+    position: fixed; bottom: 0; right: 40px;
+    width: 200px; opacity: 0.22; z-index: 1; pointer-events: none;
+  }
+
+  .torii-left {
+    position: fixed; bottom: 0; left: -20px;
+    width: 140px; opacity: 0.13; z-index: 1; pointer-events: none;
+    transform: scaleX(-1);
+  }
+
+  .petal {
+    position: fixed; top: -30px; opacity: 0; z-index: 2;
+    pointer-events: none; animation: fall linear infinite;
+  }
+
+  @keyframes fall {
+    0%   { transform: translateY(0) rotate(0deg) translateX(0); opacity: 0; }
+    8%   { opacity: 1; }
+    88%  { opacity: 0.8; }
+    100% { transform: translateY(110vh) rotate(600deg) translateX(80px); opacity: 0; }
   }
 
   .wrap {
-    max-width: 780px;
-    margin: 0 auto;
-    padding: 64px 32px 80px;
+    position: relative; z-index: 3;
+    max-width: 740px; margin: 0 auto; padding: 64px 32px 80px;
   }
 
-  /* ── HEADER ── */
   .header {
-    margin-bottom: 48px;
-    padding-bottom: 28px;
-    border-bottom: 1px solid #1e2a44;
+    margin-bottom: 48px; padding-bottom: 28px;
+    border-bottom: 2px dashed #f4a0c0;
   }
 
   .breadcrumb {
     font-family: "Cormorant Garamond", serif;
-    font-size: 11px;
-    letter-spacing: 0.3em;
-    color: #4a6a9a;
-    margin-bottom: 12px;
+    font-size: 11px; letter-spacing: 0.3em; color: #d090a8; margin-bottom: 12px;
   }
 
-  .breadcrumb a {
-    color: #e8b84a;
-    text-decoration: none;
-  }
-
+  .breadcrumb a { color: #e03868; text-decoration: none; }
   .breadcrumb a:hover { text-decoration: underline; }
 
-  .page-label {
-    display: flex;
-    align-items: center;
-    gap: 16px;
-    margin-bottom: 10px;
-  }
+  .page-label { display: flex; align-items: center; gap: 14px; margin-bottom: 10px; }
 
   .roman {
     font-family: "Cormorant Garamond", serif;
-    font-size: 36px;
-    font-weight: 400;
-    color: #a03028;
-    line-height: 1;
+    font-size: 36px; font-weight: 400; color: #e8405a; line-height: 1;
   }
 
   h1 {
     font-family: "Cormorant Garamond", serif;
-    font-size: 30px;
-    font-weight: 400;
-    letter-spacing: 0.04em;
-    color: #e8f0ff;
-    line-height: 1.2;
+    font-size: 30px; font-weight: 400; letter-spacing: 0.04em;
+    color: #c03060; line-height: 1.2; text-shadow: 1px 1px 0 #ffd0e0;
   }
 
   .page-note {
-    font-size: 13px;
-    color: #5a6a88;
-    line-height: 1.9;
-    font-weight: 300;
-    margin-top: 10px;
+    font-size: 13px; color: #9a5070; line-height: 1.9; font-weight: 300; margin-top: 10px;
   }
 
-  /* ── ENTRIES ── */
-  .entries {
-    display: flex;
-    flex-direction: column;
-    gap: 2px;
-  }
+  .entries { display: flex; flex-direction: column; gap: 10px; }
 
   .entry {
-    border: 1px solid #182030;
-    border-left: 3px solid #a03028;
-    background: #0c1220;
-    padding: 20px 24px;
-    transition: border-color 0.2s, background 0.2s;
+    background: #fff8fa; border: 2px solid #f4c0d0;
+    border-left: 4px solid #e8405a; border-radius: 10px;
+    padding: 20px 24px; box-shadow: 0 2px 8px #f4c0d022;
+    transition: box-shadow 0.25s, transform 0.25s;
   }
 
   .entry:hover {
-    border-color: #2a4878;
-    border-left-color: #c0392b;
-    background: #0e1628;
+    box-shadow: 0 6px 18px #f4a0c040; transform: translateY(-2px);
   }
 
   .entry-date {
     font-family: "Cormorant Garamond", serif;
-    font-size: 12px;
-    letter-spacing: 0.2em;
-    color: #e8b84a;
-    margin-bottom: 8px;
+    font-size: 12px; letter-spacing: 0.25em; color: #e03868; margin-bottom: 8px;
   }
 
   .entry-text {
-    font-size: 14px;
-    color: #8aaad8;
-    line-height: 1.9;
-    font-weight: 300;
-  }
-
-  /* ── INPUT SECTION ── */
-  .input-section {
-    margin-top: 40px;
-    padding: 28px 32px;
-    background: #0c1422;
-    border: 1px solid #182030;
-    border-top: 2px solid #2a5898;
-    position: relative;
-  }
-
-  .input-section::before {
-    content: "新規入力";
-    position: absolute;
-    top: -10px; left: 24px;
-    background: #0a0e18;
-    padding: 0 10px;
-    font-size: 10px;
-    letter-spacing: 0.3em;
-    color: #3a5a88;
-  }
-
-  .input-section h2 {
-    font-family: "Cormorant Garamond", serif;
-    font-size: 16px;
-    font-weight: 400;
-    color: #6a8ab8;
-    margin-bottom: 14px;
-    letter-spacing: 0.1em;
-  }
-
-  textarea {
-    width: 100%;
-    height: 120px;
-    background: #08100e;
-    border: 1px solid #1e2a44;
-    color: #c8d8ee;
-    font-family: "Noto Serif JP", serif;
-    font-size: 14px;
-    line-height: 1.8;
-    padding: 12px 16px;
-    resize: vertical;
-    outline: none;
-    transition: border-color 0.2s;
-  }
-
-  textarea:focus { border-color: #2a4878; }
-  textarea::placeholder { color: #2a3850; }
-
-  button {
-    margin-top: 12px;
-    padding: 9px 22px;
-    background: transparent;
-    border: 1px solid #2a4878;
-    color: #6a9ad8;
-    font-family: "Noto Serif JP", serif;
-    font-size: 13px;
-    cursor: pointer;
-    letter-spacing: 0.1em;
-    transition: all 0.2s;
-  }
-
-  button:hover {
-    background: #0e1a30;
-    border-color: #4a7ab8;
-    color: #a8c8f0;
+    font-size: 14px; color: #6a3848; line-height: 1.95; font-weight: 300;
   }
 
   @media (max-width: 560px) {
-    h1 { font-size: 22px; }
-    .roman { font-size: 28px; }
+    h1 { font-size: 22px; } .roman { font-size: 28px; }
     .wrap { padding: 40px 20px 60px; }
   }
 </style>
 </head>
 <body>
-<div class="deco"></div>
-<div class="wrap">
+<div class="bg"></div>
 
+<svg class="torii" viewBox="0 0 200 320" xmlns="http://www.w3.org/2000/svg">
+  <rect x="0" y="28" width="200" height="16" rx="4" fill="#e03060"/>
+  <rect x="-8" y="22" width="16" height="26" rx="3" fill="#e03060"/>
+  <rect x="192" y="22" width="16" height="26" rx="3" fill="#e03060"/>
+  <rect x="12" y="54" width="176" height="11" rx="3" fill="#e03060"/>
+  <rect x="32" y="108" width="136" height="9" rx="2" fill="#c02848"/>
+  <rect x="42" y="62" width="20" height="258" rx="5" fill="#c02848"/>
+  <rect x="138" y="62" width="20" height="258" rx="5" fill="#c02848"/>
+</svg>
+<svg class="torii-left" viewBox="0 0 200 320" xmlns="http://www.w3.org/2000/svg">
+  <rect x="0" y="28" width="200" height="16" rx="4" fill="#e03060"/>
+  <rect x="-8" y="22" width="16" height="26" rx="3" fill="#e03060"/>
+  <rect x="192" y="22" width="16" height="26" rx="3" fill="#e03060"/>
+  <rect x="12" y="54" width="176" height="11" rx="3" fill="#e03060"/>
+  <rect x="32" y="108" width="136" height="9" rx="2" fill="#c02848"/>
+  <rect x="42" y="62" width="20" height="258" rx="5" fill="#c02848"/>
+  <rect x="138" y="62" width="20" height="258" rx="5" fill="#c02848"/>
+</svg>
+<div id="petals"></div>
+
+<div class="wrap">
   <header class="header">
-    <div class="breadcrumb">
-      <a href="index.html">世の中の疑問ブログ</a> / Ⅰ. データ収集
-    </div>
+    <div class="breadcrumb"><a href="index.html">世の中の疑問ブログ</a> / Ⅰ. データ収集</div>
     <div class="page-label">
       <span class="roman">Ⅰ</span>
       <h1>観察記録（言語データ収集）</h1>
@@ -214,63 +148,61 @@
   </header>
 
   <div class="entries">
-
-   <div class="entry">
+    <div class="entry">
       <div class="entry-date">2026 / 06 / 26</div>
       <p class="entry-text">日記を次の日に読み返すと「ここに主語入れないと分からないよな」ってなることがある。</p>
     </div>
-
-   <div class="entry">
+    <div class="entry">
       <div class="entry-date">2026 / 06 / 26</div>
       <p class="entry-text">最近の人は「思い出の１頁」的なことを「アオハル」って言うらしい。</p>
     </div>
-
-   <div class="entry">
+    <div class="entry">
       <div class="entry-date">2026 / 06 / 25</div>
-      <p class="entry-text">広辞苑買った！さっそく翻訳に使ってる。まず最初に調べたのは
-      60年代の映画で石原裕次郎が「アパッチだな」って言ってて
-      アパッチってなんだ？ってなって調べた。
-      どうやらアメリカのアパッチ族のことらしくて、ホームレスとかみすぼらしいみたいな使い方するらしいんだけど
-      差別用語として放送禁止用語になったらしい。</p>
+      <p class="entry-text">広辞苑買った！さっそく翻訳に使ってる。まず最初に調べたのは60年代の映画で石原裕次郎が「アパッチだな」って言っててアパッチってなんだ？ってなって調べた。どうやらアメリカのアパッチ族のことらしくて、ホームレスとかみすぼらしいみたいな使い方するらしいんだけど差別用語として放送禁止用語になったらしい。</p>
     </div>
-
-   <div class="entry">
+    <div class="entry">
       <div class="entry-date">2026 / 06 / 23</div>
       <p class="entry-text">「しとしと」は雨が降り止まないときに使う。</p>
     </div>
-
-   <div class="entry">
+    <div class="entry">
       <div class="entry-date">2026 / 06 / 22</div>
-      <p class="entry-text">「琴線に触れる」を「怒る」って使う人が好きじゃない。
-      こんなに素敵な慣用句なのに。</p>
+      <p class="entry-text">「琴線に触れる」を「怒る」って使う人が好きじゃない。こんなに素敵な慣用句なのに。</p>
     </div>
-
-   <div class="entry">
+    <div class="entry">
       <div class="entry-date">2026 / 06 / 15</div>
       <p class="entry-text">「豪国」じゃなくてなぜ「豪州」なのかというとオセアニア諸島が植民地だったころにそこの一帯を豪州と呼んでいた。だから、その名残でオーストラリアを豪州と呼んでいるらしい。</p>
     </div>
-
-   <div class="entry">
+    <div class="entry">
       <div class="entry-date">2026 / 06 / 15</div>
       <p class="entry-text">片頭痛（へんずつう）なのか偏頭痛（へんとうつう）なのか調べたんだけど、医学的には片頭痛が正しいらしい。</p>
     </div>
-
-   <div class="entry">
+    <div class="entry">
       <div class="entry-date">2026 / 06 / 05</div>
       <p class="entry-text">日本人の「なんでも聞いてください」は、ちょっと怖いなって思う。「ミスする前に言えよ」って意味だと思ってる。この言い方する人って意地悪だよな……。</p>
     </div>
-
     <div class="entry">
       <div class="entry-date">2026 / 05 / 20</div>
       <p class="entry-text">方言漢字なるものを発見した。調べるの面白そう</p>
     </div>
-   
     <div class="entry">
       <div class="entry-date">2026 / 04 / 20</div>
       <p class="entry-text">え……「はっきり分かんだね」が野獣先輩のセリフなのか。野獣先輩から流行語になってる例はかなりあるみたい。気をつけないと使ってしまう可能性はある</p>
     </div>
   </div>
-
 </div>
+
+<script>
+  const container = document.getElementById('petals');
+  const colors = ['#f090b8','#e86090','#ffc0d8','#f04878','#ffaac8','#f8d0e0'];
+  for (let i = 0; i < 32; i++) {
+    const petal = document.createElement('div');
+    petal.className = 'petal';
+    const size = 10 + Math.random() * 14;
+    const color = colors[Math.floor(Math.random() * colors.length)];
+    petal.style.cssText = `left:${Math.random()*100}vw;width:${size}px;height:${size*1.2}px;animation-duration:${6+Math.random()*9}s;animation-delay:${Math.random()*12}s;`;
+    petal.innerHTML = `<svg viewBox="0 0 24 28" xmlns="http://www.w3.org/2000/svg" width="${size}" height="${size*1.2}"><ellipse cx="12" cy="14" rx="8" ry="12" fill="${color}" opacity="0.9"/><ellipse cx="12" cy="10" rx="4" ry="6" fill="white" opacity="0.25"/></svg>`;
+    container.appendChild(petal);
+  }
+</script>
 </body>
 </html>
