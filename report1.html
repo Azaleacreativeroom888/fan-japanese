@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>気になった日本語｜森と桜のノート</title>
+<meta name="description" content="気になった日本語を、ひとつずつまとめています。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --forest:#1f4d3a;
+  --forest-deep:#173a2c;
+  --moss:#4a8060;
+  --leaf:#e3f0e4;
+  --sakura:#f6bccb;
+  --sakura-soft:#fde8ee;
+  --pink:#c2517c;
+  --bg:#fff9fb;
+  --ink:#1f3a2d;
+  --ink-soft:#4d6657;
+  --font:"Zen Maru Gothic","Hiragino Maru Gothic ProN","Yu Gothic","Meiryo",sans-serif;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;font-family:var(--font);background:var(--bg);color:var(--ink);line-height:1.9;font-size:16px}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--pink);outline-offset:3px;border-radius:6px}
+
+header.nav{position:absolute;top:0;left:0;right:0;z-index:5;display:flex;justify-content:space-between;align-items:center;padding:18px 5vw;color:#fff}
+.logo{font-weight:700;font-size:1.15rem;text-decoration:none;letter-spacing:.06em}
+nav ul{display:flex;gap:6px;list-style:none;margin:0;padding:0}
+nav a{display:block;padding:6px 16px;border-radius:999px;text-decoration:none;font-weight:500;font-size:.95rem}
+nav a:hover{background:rgba(255,255,255,.18)}
+nav a[aria-current="page"]{background:var(--sakura);color:var(--forest-deep)}
+
+.hero{position:relative;background:linear-gradient(180deg,var(--forest-deep) 0%,var(--forest) 62%,var(--moss) 100%);color:#fff;overflow:hidden}
+.hero-inner{position:relative;z-index:2;padding:130px 5vw 120px;max-width:1000px;margin:0 auto}
+.crumb{margin:0 0 10px;font-size:.88rem;color:#cfe3d3}
+.crumb a{text-decoration:underline;text-underline-offset:4px}
+.hero h1{font-size:clamp(2.2rem,6vw,3.4rem);line-height:1.3;margin:0 0 6px;font-weight:700;letter-spacing:.05em}
+.sub{margin:0 0 8px;font-size:1.15rem;font-weight:700;color:var(--sakura)}
+.hero p.note{margin:0;font-size:1.05rem;color:#e6f2e8;max-width:30em}
+.branch{position:absolute;top:0;right:0;width:min(420px,70vw);height:auto;z-index:1;pointer-events:none}
+.hills{position:absolute;left:0;right:0;bottom:-1px;width:100%;height:auto;z-index:1;display:block}
+.petals{position:absolute;inset:0;z-index:1;pointer-events:none}
+.petal{position:absolute;top:-30px;width:16px;height:20px;color:var(--sakura);opacity:.85;animation:fall linear infinite}
+@keyframes fall{
+  0%{transform:translate(0,-30px) rotate(0)}
+  50%{transform:translate(40px,22vh) rotate(180deg)}
+  100%{transform:translate(-20px,46vh) rotate(380deg)}
+}
+
+main{display:block;background:var(--leaf)}
+section{padding:56px 5vw 88px}
+.wrap{max-width:760px;margin:0 auto}
+.items{display:grid;gap:18px}
+.item{background:#fff;border-radius:28px 28px 28px 8px;border:2px solid transparent;box-shadow:0 2px 0 rgba(31,77,58,.08);overflow:hidden;transition:border-color .2s}
+.item:hover{border-color:var(--sakura)}
+.item-header{display:flex;align-items:center;gap:14px;padding:16px 24px;border-bottom:2px dashed var(--sakura)}
+.item-num{flex:none;min-width:38px;height:38px;padding:0 8px;border-radius:999px;background:var(--pink);color:#fff;font-weight:700;display:grid;place-items:center;font-size:1rem}
+.item h2{margin:0;font-size:1.12rem;line-height:1.6;color:var(--forest)}
+.item-body{padding:16px 24px 20px}
+.item-body p{margin:0;color:var(--ink)}
+.item-body .arrow{color:var(--pink);font-weight:700}
+.example{margin-top:12px;padding:10px 16px;border-left:5px solid var(--sakura);background:var(--sakura-soft);border-radius:0 14px 14px 0;color:var(--ink-soft);font-size:.95rem}
+.back{display:inline-block;margin-top:32px;font-weight:700;color:var(--pink);text-decoration:underline;text-underline-offset:5px;text-decoration-thickness:2px}
+
+footer{background:var(--forest-deep);color:#cfe3d3;text-align:center;padding:36px 5vw;font-size:.9rem}
+footer nav ul{justify-content:center;margin-bottom:12px}
+footer small{display:block;opacity:.8}
+
+@media (max-width:640px){
+  header.nav{flex-direction:column;gap:8px;padding-top:14px}
+  nav a{padding:5px 12px;font-size:.88rem}
+  .hero-inner{padding-top:150px;padding-bottom:100px}
+  section{padding:44px 6vw 64px}
+  .item-header,.item-body{padding-left:18px;padding-right:18px}
+}
+@media (prefers-reduced-motion:reduce){
+  .petal{animation:none;opacity:.55}
+  html{scroll-behavior:auto}
+  .item{transition:none}
+}
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="flower" viewBox="-20 -20 40 40">
+      <g fill="currentColor">
+        <ellipse cx="0" cy="-9" rx="6" ry="9"/>
+        <ellipse cx="0" cy="-9" rx="6" ry="9" transform="rotate(72)"/>
+        <ellipse cx="0" cy="-9" rx="6" ry="9" transform="rotate(144)"/>
+        <ellipse cx="0" cy="-9" rx="6" ry="9" transform="rotate(216)"/>
+        <ellipse cx="0" cy="-9" rx="6" ry="9" transform="rotate(288)"/>
+      </g>
+      <circle r="3" fill="#f7d86b"/>
+    </symbol>
+    <symbol id="petal" viewBox="0 0 20 22">
+      <path fill="currentColor" d="M10 3C12 0 13 0 15 3C19 9 15 18 10 21C5 18 1 9 5 3C7 0 8 0 10 3Z"/>
+    </symbol>
+  </defs>
+</svg>
+
+<header class="nav">
+  <a class="logo" href="index.html">森と桜のノート</a>
+  <nav aria-label="メインメニュー">
+    <ul>
+      <li><a href="index.html">ホーム</a></li>
+      <li><a href="blog.html">ブログ</a></li>
+      <li><a href="column.html" aria-current="page">コラム</a></li>
+      <li><a href="about.html">about</a></li>
+    </ul>
+  </nav>
+</header>
+
+<div class="hero">
+  <svg class="branch" viewBox="0 0 560 360" aria-hidden="true">
+    <path d="M560 40 C470 60 400 70 330 110 C270 145 230 150 170 200" fill="none" stroke="#6b4a3a" stroke-width="9" stroke-linecap="round"/>
+    <path d="M400 80 C380 120 372 150 340 190" fill="none" stroke="#6b4a3a" stroke-width="6" stroke-linecap="round"/>
+    <g>
+      <use href="#flower" x="440" y="30" width="52" height="52" style="color:#f6bccb"/>
+      <use href="#flower" x="370" y="60" width="44" height="44" style="color:#fde8ee"/>
+      <use href="#flower" x="320" y="95" width="56" height="56" style="color:#f6bccb"/>
+      <use href="#flower" x="235" y="150" width="46" height="46" style="color:#f3a1b7"/>
+      <use href="#flower" x="500" y="70" width="40" height="40" style="color:#f3a1b7"/>
+      <use href="#flower" x="335" y="170" width="42" height="42" style="color:#fde8ee"/>
+    </g>
+  </svg>
+
+  <div class="petals" id="petals" aria-hidden="true"></div>
+
+  <div class="hero-inner">
+    <p class="crumb"><a href="index.html">ホーム</a> / <a href="column.html">コラム</a> / 気になった日本語</p>
+    <h1>気になった日本語</h1>
+    <p class="sub">論理構造・国語理論</p>
+    <p class="note">小論文に必要な思考技術を体系化する。</p>
+  </div>
+
+  <svg class="hills" viewBox="0 0 1440 140" preserveAspectRatio="none" aria-hidden="true">
+    <path fill="#3a6b4e" d="M0 80 C120 40 200 100 320 70 C440 40 520 95 660 65 C800 35 900 95 1040 70 C1180 45 1300 90 1440 60 L1440 140 L0 140Z"/>
+    <path fill="#e3f0e4" d="M0 110 C160 80 260 125 420 105 C600 82 700 130 880 108 C1060 86 1220 125 1440 100 L1440 140 L0 140Z"/>
+  </svg>
+</div>
+
+<main>
+  <section aria-label="気になった日本語の一覧">
+    <div class="wrap">
+      <div class="items">
+
+        <div class="item">
+          <div class="item-header"><span class="item-num">16</span><h2>舌先三寸（したさきさんすん）</h2></div>
+          <div class="item-body"><p>口先だけの巧みな弁舌で相手を言いくるめたり、誠意のない言葉であしらうこと。胸三寸と間違えて使われるようになった。</p></div>
+        </div>
+
+        <div class="item">
+          <div class="item-header"><span class="item-num">16</span><h2>胸三寸（むねさんず）</h2></div>
+          <div class="item-body"><p>心の中や胸の内に秘めた考えや感情</p></div>
+        </div>
+
+        <div class="item">
+          <div class="item-header"><span class="item-num">16</span><h2>殊勝</h2></div>
+          <div class="item-body"><p>非常に立派なさま。</p></div>
+        </div>
+
+        <div class="item">
+          <div class="item-header"><span class="item-num">15</span><h2>おあつらえ向き</h2></div>
+          <div class="item-body"><p>「希望どおり」「理想的」「都合よく合っている」というニュアンスを含む。</p></div>
+        </div>
+
+        <div class="item">
+          <div class="item-header"><span class="item-num">14</span><h2>お目通り</h2></div>
+          <div class="item-body"><p>身分の高い人に会うことや拝謁することを指す丁寧な表現。</p></div>
+        </div>
+
+        <div class="item">
+          <div class="item-header"><span class="item-num">13</span><h2>パブロフの犬</h2></div>
+          <div class="item-body"><p>ベルの音とエサを繰り返し組み合わせることで、ベルの音だけで犬が唾液を分泌するようになった"条件反射"の現象。</p></div>
+        </div>
+
+        <div class="item">
+          <div class="item-header"><span class="item-num">12</span><h2>「五月雨式」と「矢継ぎ早」</h2></div>
+          <div class="item-body"><p>五月雨式（さみだれしき）＝物事が途切れずダラダラと続くさま<br>例文：彼は一日を通して五月雨式に質問を送ってきた。<br>矢継ぎ早＝素早く次から次へと続くさま<br>例文：彼は質問を矢継ぎ早に投げかけた。</p></div>
+        </div>
+
+        <div class="item">
+          <div class="item-header"><span class="item-num">11</span><h2>シュレディンガーの猫</h2></div>
+          <div class="item-body"><p>コペンハーゲン解釈「実際に見てみるまで二つの可能性が同時に存在する」の反証として「二つの世界が同時に存在するのはおかしい」として提唱された。観測するまで状態が確定しない不確定性や、二つの可能性が同時に存在する状況を説明する比喩として使われる。</p></div>
+        </div>
+
+        <div class="item">
+          <div class="item-header"><span class="item-num">10</span><h2>瀟洒な</h2></div>
+          <div class="item-body"><p>すっきりとあか抜けていて、俗っぽくなくおしゃれなさま。</p></div>
+        </div>
+
+        <div class="item">
+          <div class="item-header"><span class="item-num">9</span><h2>マーフィーの法則</h2></div>
+          <div class="item-body"><p>物事がうまくいかないときに「やっぱりこうなった」と感じる、ユーモアや皮肉を込めた経験則の総称。</p></div>
+        </div>
+
+        <div class="item">
+          <div class="item-header"><span class="item-num">8</span><h2>閾値（シキイ値）</h2></div>
+          <div class="item-body"><p>その値を境にして意味や条件、判定が変わる境界線となる値。</p></div>
+        </div>
+
+        <div class="item">
+          <div class="item-header"><span class="item-num">7</span><h2>単語解説 「唯我的」と「独我的」</h2></div>
+          <div class="item-body"><p>「唯我的」 ＝ 自分が最も尊い存在であるという考え（＝唯我独尊）<br>「独我的」 ＝ 自分の意識だけが実在し、他者の存在や外部の世界は証明できないという哲学的な考え方（＝独我論）</p></div>
+        </div>
+
+        <div class="item">
+          <div class="item-header"><span class="item-num">6</span><h2>単語解説 「十把一絡げ（じっぱひとからげ）」</h2></div>
+          <div class="item-body"><p>「十把一絡げ（じっぱひとからげ）」 ＝ どれもこれもあまり価値のないものとして、多数をひとまとめに扱うこと。また、なにもかも一緒くたにして扱うこと。<br>例文：「最近の若者は十把一絡げに見られることがある」</p></div>
+        </div>
+
+        <div class="item">
+          <div class="item-header"><span class="item-num">5</span><h2>熟語解説 「白羽の矢が立つ」</h2></div>
+          <div class="item-body"><p>「白羽の矢が立つ」　＝　多くの人の中で、これぞと思う人が特に選び定められる。また、犠牲者になる。<br>日本古来の風習あるいは伝承によれば、生贄を求める神は求める対象とする少女の家の屋根に、白羽の矢を目印として立てたという。このことから転じて、「白羽の矢が立つ」の形式で「多くのものの中から犠牲者として選び出される」という意味として使われる。（Wikipedia）<br>白羽の矢に関する伝承はいくつか残っている。</p></div>
+        </div>
+
+        <div class="item">
+          <div class="item-header"><span class="item-num">4</span><h2>論理構造の基本</h2></div>
+          <div class="item-body"><p>主張は必ず「問題設定 <span class="arrow">→</span> 分析 <span class="arrow">→</span> 結論」の流れを持つ。<br>感情や印象は論証としては扱わない。</p></div>
+        </div>
+
+        <div class="item">
+          <div class="item-header"><span class="item-num">3</span><h2>抽象化</h2></div>
+          <div class="item-body">
+            <p>個別事例から「共通構造」を取り出す操作。</p>
+            <div class="example">例：SNSの不満 <span class="arrow">→</span>「評価構造への依存」</div>
+          </div>
+        </div>
+
+        <div class="item">
+          <div class="item-header"><span class="item-num">2</span><h2>反論処理</h2></div>
+          <div class="item-body"><p>予想される反対意見を先に構造化し、再配置することで論理の強度を上げる。</p></div>
+        </div>
+
+        <div class="item">
+          <div class="item-header"><span class="item-num">1</span><h2>接続表現</h2></div>
+          <div class="item-body"><p>「しかし」「したがって」「一方で」などは論理関係の明示装置である。</p></div>
+        </div>
+
+      </div>
+      <a class="back" href="column.html">コラムにもどる</a>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <nav aria-label="フッターメニュー">
+    <ul>
+      <li><a href="index.html">ホーム</a></li>
+      <li><a href="blog.html">ブログ</a></li>
+      <li><a href="column.html">コラム</a></li>
+      <li><a href="about.html">about</a></li>
+    </ul>
+  </nav>
+  <small>© 2026 森と桜のノート</small>
+</footer>
+
+<script>
+(function(){
+  var box=document.getElementById('petals');
+  if(!box) return;
+  var ns='http://www.w3.org/2000/svg';
+  for(var i=0;i<10;i++){
+    var s=document.createElementNS(ns,'svg');
+    s.setAttribute('class','petal');
+    s.setAttribute('viewBox','0 0 20 22');
+    var u=document.createElementNS(ns,'use');
+    u.setAttribute('href','#petal');
+    s.appendChild(u);
+    s.style.left=(Math.random()*100)+'%';
+    s.style.animationDuration=(8+Math.random()*8)+'s';
+    s.style.animationDelay=(-Math.random()*12)+'s';
+    var sc=.7+Math.random()*.8;
+    s.style.width=(16*sc)+'px';
+    s.style.height=(20*sc)+'px';
+    box.appendChild(s);
+  }
+})();
+</script>
+</body>
+</html>
