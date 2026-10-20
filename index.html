@@ -2,336 +2,268 @@
 <html lang="ja">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>世の中の疑問ブログ</title>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=Noto+Serif+JP:wght@300;400;500&display=swap" rel="stylesheet">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>森と桜のノート</title>
+<meta name="description" content="勉強の記録と、描いたもの、書いたものをのんびり置いていく場所。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root{
+  --forest:#1f4d3a;
+  --forest-deep:#173a2c;
+  --moss:#4a8060;
+  --leaf:#e3f0e4;
+  --sakura:#f6bccb;
+  --sakura-soft:#fde8ee;
+  --pink:#c2517c;
+  --bg:#fff9fb;
+  --ink:#1f3a2d;
+  --ink-soft:#4d6657;
+  --font:"Zen Maru Gothic","Hiragino Maru Gothic ProN","Yu Gothic","Meiryo",sans-serif;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;font-family:var(--font);background:var(--bg);color:var(--ink);line-height:1.9;font-size:16px}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--pink);outline-offset:3px;border-radius:6px}
 
-  body {
-    font-family: "Noto Serif JP", serif;
-    background: #fff5f8;
-    color: #3a1a28;
-    min-height: 100vh;
-    overflow-x: hidden;
-  }
+/* ヘッダー */
+header.nav{position:absolute;top:0;left:0;right:0;z-index:5;display:flex;justify-content:space-between;align-items:center;padding:18px 5vw;color:#fff}
+.logo{font-weight:700;font-size:1.15rem;text-decoration:none;letter-spacing:.06em}
+nav ul{display:flex;gap:6px;list-style:none;margin:0;padding:0}
+nav a{display:block;padding:6px 16px;border-radius:999px;text-decoration:none;font-weight:500;font-size:.95rem}
+nav a:hover{background:rgba(255,255,255,.18)}
+nav a[aria-current="page"]{background:var(--sakura);color:var(--forest-deep)}
 
-  /* ── 背景 ── */
-  .bg {
-    position: fixed; inset: 0;
-    background:
-      radial-gradient(ellipse at 80% 10%, #ffd6e8 0%, transparent 50%),
-      radial-gradient(ellipse at 10% 80%, #ffe0f0 0%, transparent 50%),
-      #fff5f8;
-    z-index: 0;
-  }
+/* ヒーロー */
+.hero{position:relative;background:linear-gradient(180deg,var(--forest-deep) 0%,var(--forest) 62%,var(--moss) 100%);color:#fff;overflow:hidden;min-height:min(86vh,680px);display:flex;align-items:center}
+.hero-inner{position:relative;z-index:2;padding:120px 5vw 150px;max-width:720px;margin-left:max(0px,calc((100vw - 1080px)/2))}
+.hero h1{font-size:clamp(2.4rem,7vw,4.2rem);line-height:1.25;margin:0 0 18px;font-weight:700;letter-spacing:.05em}
+.hero p{margin:0 0 30px;font-size:1.1rem;color:#e6f2e8;max-width:30em}
+.btns{display:flex;flex-wrap:wrap;gap:12px}
+.btn{display:inline-block;padding:12px 28px;border-radius:999px;font-weight:700;text-decoration:none;transition:transform .15s}
+.btn:hover{transform:translateY(-2px)}
+.btn.primary{background:var(--sakura);color:var(--forest-deep)}
+.btn.ghost{border:2px solid rgba(255,255,255,.7);color:#fff}
+.branch{position:absolute;top:0;right:0;width:min(560px,78vw);height:auto;z-index:1;pointer-events:none}
+.hills{position:absolute;left:0;right:0;bottom:-1px;width:100%;height:auto;z-index:1;display:block}
+.petals{position:absolute;inset:0;z-index:1;pointer-events:none}
+.petal{position:absolute;top:-30px;width:16px;height:20px;color:var(--sakura);opacity:.85;animation:fall linear infinite}
+@keyframes fall{
+  0%{transform:translate(0,-30px) rotate(0)}
+  50%{transform:translate(40px,45vh) rotate(180deg)}
+  100%{transform:translate(-20px,95vh) rotate(380deg)}
+}
 
-  /* ── 鳥居 ── */
-  .torii {
-    position: fixed;
-    bottom: 0; right: 40px;
-    width: 200px;
-    opacity: 0.22;
-    z-index: 1;
-    pointer-events: none;
-  }
+/* セクション共通 */
+main{display:block}
+section{padding:72px 5vw}
+.wrap{max-width:1000px;margin:0 auto}
+h2{font-size:clamp(1.5rem,4vw,2rem);margin:0 0 10px;color:var(--forest);display:flex;align-items:center;gap:12px}
+h2 svg{width:30px;height:30px;color:var(--sakura);flex:none}
+.lead{margin:0 0 32px;color:var(--ink-soft)}
+.more{display:inline-block;margin-top:24px;font-weight:700;color:var(--pink);text-decoration:underline;text-underline-offset:5px;text-decoration-thickness:2px}
 
-  .torii-left {
-    position: fixed;
-    bottom: 0; left: -20px;
-    width: 140px;
-    opacity: 0.13;
-    z-index: 1;
-    pointer-events: none;
-    transform: scaleX(-1);
-  }
+/* ブログ（ツイート風） */
+.log{background:var(--leaf)}
+.posts{list-style:none;margin:0;padding:0;display:grid;gap:14px;max-width:680px}
+.post{background:#fff;border-radius:22px;padding:18px 24px;border-left:8px solid var(--sakura);box-shadow:0 2px 0 rgba(31,77,58,.08)}
+.post time{display:block;font-size:.85rem;font-weight:700;color:var(--moss);margin-bottom:2px}
+.post p{margin:0}
 
-  /* ── 桜の花びら ── */
-  .petal {
-    position: fixed;
-    top: -30px;
-    opacity: 0;
-    z-index: 2;
-    pointer-events: none;
-    animation: fall linear infinite;
-  }
+/* コラム */
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:26px}
+.card{background:#fff;border:2px solid var(--leaf);border-radius:28px 28px 28px 8px;overflow:hidden;text-decoration:none;display:block;transition:border-color .2s,transform .2s}
+.card:hover{border-color:var(--sakura);transform:translateY(-4px)}
+.thumb{aspect-ratio:4/3;display:grid;place-items:center}
+.thumb svg{width:44%;height:auto}
+.t1{background:var(--sakura-soft);color:var(--pink)}
+.t2{background:var(--leaf);color:var(--moss)}
+.t3{background:#fbeed0;color:#b9803a}
+.card-body{padding:16px 22px 22px}
+.tag{display:inline-block;font-size:.8rem;font-weight:700;background:var(--sakura-soft);color:var(--pink);padding:1px 12px;border-radius:999px;margin-bottom:6px}
+.card h3{margin:0 0 4px;font-size:1.1rem;line-height:1.6}
+.card p{margin:0;font-size:.92rem;color:var(--ink-soft);line-height:1.8}
 
-  @keyframes fall {
-    0%   { transform: translateY(0) rotate(0deg) translateX(0); opacity: 0; }
-    8%   { opacity: 1; }
-    88%  { opacity: 0.8; }
-    100% { transform: translateY(110vh) rotate(600deg) translateX(80px); opacity: 0; }
-  }
+/* 自己紹介 */
+.about-box{background:var(--sakura-soft);border-radius:40px;padding:44px 5vw;display:flex;flex-wrap:wrap;gap:28px;align-items:center;justify-content:space-between}
+.about-box>div{flex:1 1 360px}
+.about-box h2{margin-bottom:8px}
+.about-box p{margin:0;color:var(--ink-soft)}
 
-  /* ── WRAP ── */
-  .wrap {
-    position: relative; z-index: 3;
-    max-width: 740px;
-    margin: 0 auto;
-    padding: 64px 32px 80px;
-  }
+/* フッター */
+footer{background:var(--forest-deep);color:#cfe3d3;text-align:center;padding:36px 5vw;font-size:.9rem}
+footer nav ul{justify-content:center;margin-bottom:12px}
+footer small{display:block;opacity:.8}
 
-  /* ── HEADER ── */
-  .header {
-    margin-bottom: 48px;
-    padding-bottom: 28px;
-    border-bottom: 2px dashed #f4a0c0;
-  }
-
-  .eyebrow {
-    font-family: "Cormorant Garamond", serif;
-    font-size: 12px;
-    letter-spacing: 0.35em;
-    text-transform: uppercase;
-    color: #e0608a;
-    margin-bottom: 10px;
-  }
-
-  h1 {
-    font-family: "Cormorant Garamond", serif;
-    font-size: 46px;
-    font-weight: 400;
-    letter-spacing: 0.04em;
-    color: #c03060;
-    line-height: 1.15;
-    text-shadow: 2px 2px 0 #ffd0e0;
-  }
-
-  .subtitle {
-    font-size: 13px;
-    color: #9a5070;
-    line-height: 1.9;
-    margin-top: 12px;
-    font-weight: 300;
-  }
-
-  .tagline {
-    margin-top: 20px;
-    padding: 16px 20px;
-    border-left: 3px solid #f080a8;
-    background: #fff0f5;
-    border-radius: 0 8px 8px 0;
-  }
-
-  .tagline p {
-    font-size: 13px;
-    color: #a05070;
-    line-height: 2;
-    font-style: italic;
-  }
-
-  .tagline .arrow { color: #e8507a; font-style: normal; font-weight: 500; }
-
-  /* ── SECTIONS ── */
-  .sections { display: flex; flex-direction: column; gap: 10px; }
-
-  .section-item {
-    display: grid;
-    grid-template-columns: 110px 1fr;
-    border: 2px solid #f4c0d0;
-    border-radius: 10px;
-    background: #fff8fa;
-    overflow: hidden;
-    transition: all 0.25s;
-    box-shadow: 0 2px 8px #f4c0d022;
-  }
-
-  .section-item:hover {
-    border-color: #e8709a;
-    box-shadow: 0 4px 18px #f4a0c040;
-    transform: translateY(-2px);
-  }
-
-  .section-item:hover .section-link { color: #c03060; }
-  .section-item:hover .roman { opacity: 1; }
-
-  .section-item:nth-child(1) { border-top: 4px solid #e8405a; }
-  .section-item:nth-child(2) { border-top: 4px solid #e87098; }
-  .section-item:nth-child(3) { border-top: 4px solid #f0a0c0; }
-
-  .section-num {
-    display: flex; flex-direction: column;
-    align-items: center; justify-content: center;
-    padding: 24px 12px;
-    border-right: 2px dashed #f4c0d0;
-  }
-
-  .section-item:nth-child(1) .roman { color: #e8405a; }
-  .section-item:nth-child(2) .roman { color: #e87098; }
-  .section-item:nth-child(3) .roman { color: #d060a0; }
-
-  .roman {
-    font-family: "Cormorant Garamond", serif;
-    font-size: 26px; font-weight: 400;
-    line-height: 1;
-    opacity: 0.85;
-    transition: opacity 0.2s;
-  }
-
-  .num-label {
-    font-size: 9px; letter-spacing: 0.15em;
-    color: #d090a8; margin-top: 6px;
-  }
-
-  .section-body {
-    padding: 20px 22px;
-    display: flex; flex-direction: column;
-    justify-content: center; gap: 6px;
-  }
-
-  .section-link {
-    font-size: 14px; font-weight: 500;
-    color: #b04868; text-decoration: none;
-    display: flex; align-items: center; gap: 8px;
-    transition: color 0.2s;
-  }
-
-  .section-link::after {
-    content: "→"; font-size: 13px;
-    color: #f090b0;
-    transition: color 0.2s, transform 0.2s;
-    display: inline-block;
-  }
-
-  .section-item:hover .section-link::after {
-    color: #e8405a;
-    transform: translateX(4px);
-  }
-
-  .section-note {
-    font-size: 11px; color: #c098a8;
-    line-height: 1.7; font-weight: 300;
-  }
-
-  /* ── PURPOSE ── */
-  .purpose {
-    margin-top: 36px; padding: 26px 28px;
-    background: #fff0f5;
-    border: 2px solid #f4c0d0;
-    border-radius: 10px;
-    position: relative;
-  }
-
-  .purpose::before {
-    content: "✿ 目的 ✿";
-    position: absolute; top: -12px; left: 20px;
-    background: #fff5f8; padding: 0 10px;
-    font-size: 11px; letter-spacing: 0.2em; color: #e880a8;
-  }
-
-  .purpose p { font-size: 13px; color: #9a6070; line-height: 2.2; font-weight: 300; }
-  .purpose strong { color: #e03868; font-weight: 500; }
-  .strikethrough { text-decoration: line-through; color: #e090a8; }
-
-  .sakura-deco { color: #e880a8; margin: 0 4px; }
+@media (max-width:640px){
+  header.nav{flex-direction:column;gap:8px;padding-top:14px}
+  nav a{padding:5px 12px;font-size:.88rem}
+  .hero-inner{padding-top:150px}
+  section{padding:56px 6vw}
+}
+@media (prefers-reduced-motion:reduce){
+  .petal{animation:none;opacity:.55}
+  html{scroll-behavior:auto}
+  .btn,.card{transition:none}
+}
 </style>
 </head>
 <body>
-<div class="bg"></div>
 
-<!-- 鳥居 右 -->
-<svg class="torii" viewBox="0 0 200 320" xmlns="http://www.w3.org/2000/svg">
-  <rect x="0" y="28" width="200" height="16" rx="4" fill="#e03060"/>
-  <rect x="-8" y="22" width="16" height="26" rx="3" fill="#e03060"/>
-  <rect x="192" y="22" width="16" height="26" rx="3" fill="#e03060"/>
-  <rect x="12" y="54" width="176" height="11" rx="3" fill="#e03060"/>
-  <rect x="32" y="108" width="136" height="9" rx="2" fill="#c02848"/>
-  <rect x="42" y="62" width="20" height="258" rx="5" fill="#c02848"/>
-  <rect x="138" y="62" width="20" height="258" rx="5" fill="#c02848"/>
+<!-- 花と花びらの部品 -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="flower" viewBox="-20 -20 40 40">
+      <g fill="currentColor">
+        <ellipse cx="0" cy="-9" rx="6" ry="9"/>
+        <ellipse cx="0" cy="-9" rx="6" ry="9" transform="rotate(72)"/>
+        <ellipse cx="0" cy="-9" rx="6" ry="9" transform="rotate(144)"/>
+        <ellipse cx="0" cy="-9" rx="6" ry="9" transform="rotate(216)"/>
+        <ellipse cx="0" cy="-9" rx="6" ry="9" transform="rotate(288)"/>
+      </g>
+      <circle r="3" fill="#f7d86b"/>
+    </symbol>
+    <symbol id="petal" viewBox="0 0 20 22">
+      <path fill="currentColor" d="M10 3C12 0 13 0 15 3C19 9 15 18 10 21C5 18 1 9 5 3C7 0 8 0 10 3Z"/>
+    </symbol>
+  </defs>
 </svg>
 
-<!-- 鳥居 左 -->
-<svg class="torii-left" viewBox="0 0 200 320" xmlns="http://www.w3.org/2000/svg">
-  <rect x="0" y="28" width="200" height="16" rx="4" fill="#e03060"/>
-  <rect x="-8" y="22" width="16" height="26" rx="3" fill="#e03060"/>
-  <rect x="192" y="22" width="16" height="26" rx="3" fill="#e03060"/>
-  <rect x="12" y="54" width="176" height="11" rx="3" fill="#e03060"/>
-  <rect x="32" y="108" width="136" height="9" rx="2" fill="#c02848"/>
-  <rect x="42" y="62" width="20" height="258" rx="5" fill="#c02848"/>
-  <rect x="138" y="62" width="20" height="258" rx="5" fill="#c02848"/>
-</svg>
+<header class="nav">
+  <a class="logo" href="index.html">森と桜のノート</a>
+  <nav aria-label="メインメニュー">
+    <ul>
+      <li><a href="index.html" aria-current="page">ホーム</a></li>
+      <li><a href="blog.html">ブログ</a></li>
+      <li><a href="column.html">コラム</a></li>
+      <li><a href="about.html">about</a></li>
+    </ul>
+  </nav>
+</header>
 
-<div id="petals"></div>
+<div class="hero">
+  <!-- 右上から垂れる桜の枝 -->
+  <svg class="branch" viewBox="0 0 560 360" aria-hidden="true">
+    <path d="M560 40 C470 60 400 70 330 110 C270 145 230 150 170 200" fill="none" stroke="#6b4a3a" stroke-width="9" stroke-linecap="round"/>
+    <path d="M400 80 C380 120 372 150 340 190" fill="none" stroke="#6b4a3a" stroke-width="6" stroke-linecap="round"/>
+    <path d="M300 125 C290 160 270 185 250 215" fill="none" stroke="#6b4a3a" stroke-width="5" stroke-linecap="round"/>
+    <g>
+      <use href="#flower" x="440" y="30" width="52" height="52" style="color:#f6bccb"/>
+      <use href="#flower" x="370" y="60" width="44" height="44" style="color:#fde8ee"/>
+      <use href="#flower" x="320" y="95" width="56" height="56" style="color:#f6bccb"/>
+      <use href="#flower" x="235" y="150" width="46" height="46" style="color:#f3a1b7"/>
+      <use href="#flower" x="150" y="180" width="50" height="50" style="color:#fde8ee"/>
+      <use href="#flower" x="335" y="170" width="42" height="42" style="color:#fde8ee"/>
+      <use href="#flower" x="238" y="205" width="38" height="38" style="color:#f6bccb"/>
+      <use href="#flower" x="500" y="70" width="40" height="40" style="color:#f3a1b7"/>
+    </g>
+  </svg>
 
-<div class="wrap">
-  <header class="header">
-    <div class="eyebrow">Japanese Writing Practice <span class="sakura-deco">✿</span></div>
-    <h1>世の中の疑問ブログ</h1>
-    <p class="subtitle">
-      日常的に生じる言語的違和感・社会的事象を対象とし、<br>
-      論理構造に再構成することで日本語を鍛えるブログサイト。
-    </p>
-    <div class="tagline">
-      <p>「感情」をそのまま表出するのではなく、<br>
-      問題設定 <span class="arrow">→</span> 分析 <span class="arrow">→</span> 論証 <span class="arrow">→</span> 結論という形で日本語力を鍛える。</p>
-    </div>
-  </header>
+  <div class="petals" id="petals" aria-hidden="true"></div>
 
-  <div class="sections">
-    <div class="section-item">
-      <div class="section-num">
-        <span class="roman">Ⅰ</span>
-        <span class="num-label">データ収集</span>
-      </div>
-      <div class="section-body">
-        <a href="blog.html" class="section-link">観察記録の蓄積（違和感・社会的事象）</a>
-        <span class="section-note">未整理の言語データを収集する段階</span>
-      </div>
-    </div>
-
-    <div class="section-item">
-      <div class="section-num">
-        <span class="roman">Ⅱ</span>
-        <span class="num-label">論理変換</span>
-      </div>
-      <div class="section-body">
-        <a href="translation.html" class="section-link">小論文形式への再構成</a>
-        <span class="section-note">問題提起／定義／分析／反論／結論の5段構造を用いる</span>
-      </div>
-    </div>
-
-    <div class="section-item">
-      <div class="section-num">
-        <span class="roman">Ⅲ</span>
-        <span class="num-label">国語学習</span>
-      </div>
-      <div class="section-body">
-        <a href="explanation.html" class="section-link">論理構造・表現技法・日本語表現の解説</a>
-        <span class="section-note">論理展開・接続表現・日本語文法・現代語の習得</span>
-      </div>
+  <div class="hero-inner">
+    <h1>森のなかで、<br>桜をひとひら。</h1>
+    <p>勉強の記録と、描いたもの、書いたもの。毎日の小さな積み重ねを、ここにのんびり置いていきます。</p>
+    <div class="btns">
+      <a class="btn primary" href="blog.html">勉強ログを見る</a>
+      <a class="btn ghost" href="column.html">コラムを読む</a>
     </div>
   </div>
 
-  <div class="purpose">
-    <p>
-      本サイトは<span class="strikethrough">作文練習</span>ではなく、<br>
-      <strong>日本語で書く能力の訓練</strong>を目的とする。
-    </p>
-  </div>
+  <!-- 木々のシルエット -->
+  <svg class="hills" viewBox="0 0 1440 140" preserveAspectRatio="none" aria-hidden="true">
+    <path fill="#3a6b4e" d="M0 80 C120 40 200 100 320 70 C440 40 520 95 660 65 C800 35 900 95 1040 70 C1180 45 1300 90 1440 60 L1440 140 L0 140Z"/>
+    <path fill="#e3f0e4" d="M0 110 C160 80 260 125 420 105 C600 82 700 130 880 108 C1060 86 1220 125 1440 100 L1440 140 L0 140Z"/>
+  </svg>
 </div>
 
-<script>
-  const container = document.getElementById('petals');
-  const colors = ['#f090b8','#e86090','#ffc0d8','#f04878','#ffaac8','#f8d0e0'];
+<main>
+  <section class="log" aria-labelledby="log-h">
+    <div class="wrap">
+      <h2 id="log-h"><svg aria-hidden="true"><use href="#flower"/></svg>さいきんの勉強ログ</h2>
+      <p class="lead">その日にやったことを、ひとことずつ。</p>
+      <ul class="posts">
+        <!-- ここはサンプル。blog.htmlの最新3件に差し替えてね -->
+        <li class="post"><time datetime="2026-10-20">2026.10.20</time><p>今日は英文を3本訳した。直訳になりすぎるところを、自然な日本語に直す練習を続けてる。</p></li>
+        <li class="post"><time datetime="2026-10-19">2026.10.19</time><p>漫画のネームを1話ぶん見直した。コマ割りのテンポが少しよくなった気がする。</p></li>
+        <li class="post"><time datetime="2026-10-18">2026.10.18</time><p>イラストの色塗りを練習。影の色を変えるだけで、ぐっと雰囲気が出ることを発見。</p></li>
+      </ul>
+      <a class="more" href="blog.html">ブログをぜんぶ読む</a>
+    </div>
+  </section>
 
-  for (let i = 0; i < 32; i++) {
-    const petal = document.createElement('div');
-    petal.className = 'petal';
-    const size = 10 + Math.random() * 14;
-    const color = colors[Math.floor(Math.random() * colors.length)];
-    const drift = (Math.random() - 0.5) * 120;
-    petal.style.cssText = `
-      left: ${Math.random() * 100}vw;
-      width: ${size}px; height: ${size * 1.2}px;
-      animation-duration: ${6 + Math.random() * 9}s;
-      animation-delay: ${Math.random() * 12}s;
-    `;
-    petal.innerHTML = `<svg viewBox="0 0 24 28" xmlns="http://www.w3.org/2000/svg" width="${size}" height="${size*1.2}">
-      <ellipse cx="12" cy="14" rx="8" ry="12" fill="${color}" opacity="0.9"/>
-      <ellipse cx="12" cy="10" rx="4" ry="6" fill="white" opacity="0.25"/>
-    </svg>`;
-    container.appendChild(petal);
+  <section aria-labelledby="col-h">
+    <div class="wrap">
+      <h2 id="col-h"><svg aria-hidden="true"><use href="#flower"/></svg>コラムとギャラリー</h2>
+      <p class="lead">漫画、イラスト、ちょっとした考えごと。</p>
+      <div class="cards">
+        <!-- サンプル。実際の作品に差し替えてね -->
+        <a class="card" href="column.html">
+          <div class="thumb t1"><svg viewBox="0 0 60 60" aria-hidden="true"><rect x="6" y="8" width="22" height="22" rx="4" fill="currentColor"/><rect x="32" y="8" width="22" height="22" rx="4" fill="currentColor" opacity=".55"/><rect x="6" y="34" width="48" height="18" rx="4" fill="currentColor" opacity=".8"/></svg></div>
+          <div class="card-body"><span class="tag">漫画</span><h3>新しいお話のネームができるまで</h3><p>アイデアを形にするまでの、ちいさな試行錯誤。</p></div>
+        </a>
+        <a class="card" href="column.html">
+          <div class="thumb t2"><svg viewBox="0 0 60 60" aria-hidden="true"><circle cx="30" cy="30" r="22" fill="currentColor" opacity=".35"/><use href="#flower" x="12" y="12" width="36" height="36" style="color:#f6bccb"/></svg></div>
+          <div class="card-body"><span class="tag">イラスト</span><h3>春の色をさがして</h3><p>桜とみどりの組み合わせで描いた一枚のメイキング。</p></div>
+        </a>
+        <a class="card" href="column.html">
+          <div class="thumb t3"><svg viewBox="0 0 60 60" aria-hidden="true"><path d="M10 12h40v30H28l-12 10V42h-6z" fill="currentColor"/></svg></div>
+          <div class="card-body"><span class="tag">コラム</span><h3>続けるためのちいさな工夫</h3><p>勉強も創作も、無理なく続けるために試していること。</p></div>
+        </a>
+      </div>
+      <a class="more" href="column.html">コラムをぜんぶ見る</a>
+    </div>
+  </section>
+
+  <section aria-labelledby="about-h" style="padding-top:0">
+    <div class="wrap">
+      <div class="about-box">
+        <div>
+          <h2 id="about-h">このサイトについて</h2>
+          <p>勉強したことと、つくったものを少しずつ増やしていく、自分のための小さな森です。のぞいてくれてありがとう。</p>
+        </div>
+        <a class="btn primary" href="about.html" style="background:var(--pink);color:#fff">about を見る</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <nav aria-label="フッターメニュー">
+    <ul>
+      <li><a href="index.html">ホーム</a></li>
+      <li><a href="blog.html">ブログ</a></li>
+      <li><a href="column.html">コラム</a></li>
+      <li><a href="about.html">about</a></li>
+    </ul>
+  </nav>
+  <small>© 2026 森と桜のノート</small>
+</footer>
+
+<script>
+// 花びらをヒーローに散らす（動きを減らす設定のときはCSS側で止まる）
+(function(){
+  var box=document.getElementById('petals');
+  if(!box) return;
+  var ns='http://www.w3.org/2000/svg';
+  for(var i=0;i<14;i++){
+    var s=document.createElementNS(ns,'svg');
+    s.setAttribute('class','petal');
+    s.setAttribute('viewBox','0 0 20 22');
+    var u=document.createElementNS(ns,'use');
+    u.setAttribute('href','#petal');
+    s.appendChild(u);
+    s.style.left=(Math.random()*100)+'%';
+    s.style.animationDuration=(9+Math.random()*9)+'s';
+    s.style.animationDelay=(-Math.random()*14)+'s';
+    var sc=.7+Math.random()*.8;
+    s.style.width=(16*sc)+'px';
+    s.style.height=(20*sc)+'px';
+    box.appendChild(s);
   }
+})();
 </script>
 </body>
 </html>
